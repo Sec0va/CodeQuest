@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeQuest Личный кабинет</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "primary-dark": "#1a6bb8",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a22",
+                        "surface-dark": "#192633",
+                        "surface-highlight": "#233648",
+                        "text-secondary": "#92adc9"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-white font-display overflow-x-hidden flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-surface-highlight bg-background-dark/95 backdrop-blur supports-[backdrop-filter]:bg-background-dark/60 px-4 lg:px-10 py-3">
+<div class="mx-auto flex max-w-[1280px] items-center justify-between">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] hidden sm:block">CodeQuest</h2>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4 sm:gap-8">
+<nav class="hidden md:flex items-center gap-6 lg:gap-9">
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="home.html">Главная</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="contests.html">Конкурсы</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Рейтинг</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-surface-highlight text-white transition-colors relative group">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-background-dark"></span>
+</button>
+<div class="relative cursor-pointer group">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-transparent group-hover:ring-primary transition-all" data-alt="User profile avatar showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANBBeugOS9Pvk5xcKmQGZu9VyLv4vfqwRo1L-D5fI6OUeSNRjJVQdHFlVSNN7Jq_AzskSPnXIjk4120FrwIyMdL2bmpqrwvMExJDxjCl3uLE4Y99UY4_VTax_743pVIImqi0hQaY3XNdLz64dCNfTCXRUaDkZszahhL-YKWRlim21C8uD_8mcpqv1w8u_udUoDK4b8Srt6EW2HI47TdVH2rmZCOVxaIHSkzOA4W17kvSjTkma3OuoxKi-KPIlDvcWimxqB8dj5dEkj");'></div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full px-4 sm:px-6 lg:px-8 py-8 flex justify-center">
+<div class="w-full max-w-[1100px] flex flex-col gap-8">
+<!-- Profile Header -->
+<section class="rounded-xl bg-surface-dark border border-surface-highlight p-6 sm:p-8 shadow-sm">
+<div class="flex flex-col md:flex-row gap-6 md:items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-24 sm:size-32 ring-4 ring-background-dark" data-alt="User avatar large view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDC4OqYLreY73HuMizIM8CFfCg3CRNt3a310zYMypWMsB_-9ytFbmjmNWB7MLpc5MQJnb0pAb1h8QrqNjAceHphevarcv6wrb2_bSsiEr-CpMh3aE5Fsc80p8eX_a4j22_JnAqirqCse53NP1G4EjiUX5HTo4U5p1uXYuopPWidQxBKScVpSZrN7FwY9ZLL102lXpuoaTqIGkXG81FGkegCVxcELx6Sf8ndgyG7LV6PkpyzLVc6Es2Jrn_ALeQSZXrCCyRn8el6GvNz");'></div>
+<div class="flex flex-col gap-1">
+<h1 class="text-white text-2xl sm:text-3xl font-bold leading-tight tracking-[-0.015em]">Иван Иванов</h1>
+<p class="text-primary text-base sm:text-lg font-medium">@ivan_coder</p>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="text-text-secondary text-sm bg-surface-highlight px-2 py-0.5 rounded">Студент</span>
+<span class="text-text-secondary text-sm bg-surface-highlight px-2 py-0.5 rounded">Middle Developer</span>
+</div>
+<p class="text-text-secondary text-sm mt-1">ivan@example.com</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-4 md:mt-0">
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 px-6 bg-surface-highlight hover:bg-[#2e455c] text-white text-sm font-bold transition-colors w-full sm:w-auto">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+<span>Редактировать</span>
+</button>
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 px-6 bg-primary hover:bg-primary-dark text-white text-sm font-bold transition-colors w-full sm:w-auto">
+<span class="material-symbols-outlined text-[20px]">lock_reset</span>
+<span>Сменить пароль</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Stats Overview -->
+<section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-surface-dark border border-surface-highlight rounded-xl p-6 flex flex-col gap-2 hover:border-primary/50 transition-colors cursor-default group">
+<div class="flex items-center gap-2 text-text-secondary mb-1">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">military_tech</span>
+<p class="text-sm font-medium uppercase tracking-wider">Текущий уровень</p>
+</div>
+<p class="text-white text-4xl font-bold">12</p>
+</div>
+<div class="bg-surface-dark border border-surface-highlight rounded-xl p-6 flex flex-col gap-2 hover:border-primary/50 transition-colors cursor-default group">
+<div class="flex items-center gap-2 text-text-secondary mb-1">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">emoji_events</span>
+<p class="text-sm font-medium uppercase tracking-wider">Участий в конкурсах</p>
+</div>
+<p class="text-white text-4xl font-bold">15</p>
+</div>
+<div class="bg-surface-dark border border-surface-highlight rounded-xl p-6 flex flex-col gap-2 hover:border-primary/50 transition-colors cursor-default group">
+<div class="flex items-center gap-2 text-text-secondary mb-1">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">check_circle</span>
+<p class="text-sm font-medium uppercase tracking-wider">Решено задач</p>
+</div>
+<p class="text-white text-4xl font-bold">142</p>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Tracked Contests -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="flex items-center justify-between pb-2 border-b border-surface-highlight">
+<h2 class="text-white text-xl font-bold">Отслеживаемые конкурсы</h2>
+<a class="text-primary text-sm font-medium hover:text-primary-dark transition-colors" href="contests.html">Все конкурсы</a>
+</div>
+<!-- Card 1 -->
+<div class="group flex flex-col sm:flex-row gap-0 sm:gap-6 rounded-xl bg-surface-dark border border-surface-highlight overflow-hidden hover:border-primary/50 transition-all shadow-sm">
+<div class="w-full sm:w-48 h-40 sm:h-auto bg-center bg-no-repeat bg-cover shrink-0 relative" data-alt="Abstract blue digital geometric pattern representing code" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAs4mu1uGMAwvii5fpJ75qEt-k4ez0R36cJcAD2Hygs1X9y_XLHPMRULCVtnkb3oOYunuk07hhEueY-jVUdBcWlFghvgWX4f9459jN8aKFZyG2lgvPLyzkr0CFv2_jGGRPSgawMrovXfySrYmUhsxkwkt6pZDfT7E7qLWoqBygGVgQW1FmZE54jPtT2wnWsx3IsLGLit_6nAsZqOlzOxXUVWjv-03SsJXkn881yeY2z6hx8YpPetCAhQtwr2F12ZGuowXa-dxETRvV");'>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent sm:hidden"></div>
+<div class="absolute top-3 right-3 sm:hidden">
+<span class="px-2 py-1 bg-primary text-white text-xs font-bold rounded">12 ОКТ</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 sm:pl-0 justify-between gap-4">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors">ICPC Regional 2024</h3>
+<span class="hidden sm:block px-3 py-1 bg-surface-highlight text-white text-xs font-bold rounded border border-white/10">12 Октября</span>
+</div>
+<p class="text-text-secondary text-sm mt-2 line-clamp-2">Региональный этап международной студенческой олимпиады по программированию. Командное соревнование.</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-text-secondary text-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Регистрация открыта</span>
+</div>
+<button class="flex items-center gap-1 text-sm font-medium text-white hover:text-primary transition-colors">
+                                    Подробнее
+                                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col sm:flex-row gap-0 sm:gap-6 rounded-xl bg-surface-dark border border-surface-highlight overflow-hidden hover:border-primary/50 transition-all shadow-sm">
+<div class="w-full sm:w-48 h-40 sm:h-auto bg-center bg-no-repeat bg-cover shrink-0 relative" data-alt="Dark abstract technology background with neon lights" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0gszzce8ZuMxQ70a2HH1fMv4qEloCpa0xTQjJ1Or8ks8ixailfH-6CKL0aQGr3JcmioXPirNzTYjFqBqCkuZlvUCdPAqjYrQnXBUOrjz5m3ePpwlDNZ_TQQbGXB4Xy5NQnzxLy7vLkmsAw_-DufgA31tX1ZSAnMFbJ4xgZtW6p6M_zR9iMVt9bxU78U0vpiNe6tQRsvg5JDwIzTh7aXpGknV9vHKsZmA_Kibu0Helx6KiryfyTGbS5O70M5vZdtYLeIbzbBWba9rw");'>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent sm:hidden"></div>
+<div class="absolute top-3 right-3 sm:hidden">
+<span class="px-2 py-1 bg-green-600 text-white text-xs font-bold rounded">ЗАВТРА</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-5 sm:pl-0 justify-between gap-4">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors">CodeQuest Weekly #45</h3>
+<span class="hidden sm:block px-3 py-1 bg-green-600/20 text-green-400 text-xs font-bold rounded border border-green-600/30">Завтра, 18:00</span>
+</div>
+<p class="text-text-secondary text-sm mt-2 line-clamp-2">Еженедельный спринт по алгоритмам. 5 задач, 2 часа. Отличная тренировка перед большими стартами.</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-green-400 text-xs">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Вы участвуете</span>
+</div>
+<button class="flex items-center gap-1 text-sm font-medium text-white hover:text-primary transition-colors">
+                                    Перейти к задаче
+                                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty State (Optional visual placeholder) -->
+<div class="rounded-xl border border-dashed border-surface-highlight p-6 flex flex-col items-center justify-center text-center gap-3 hover:bg-surface-dark/50 transition-colors cursor-pointer group">
+<div class="size-12 rounded-full bg-surface-highlight flex items-center justify-center text-text-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">add</span>
+</div>
+<p class="text-text-secondary font-medium text-sm">Найти больше конкурсов</p>
+</div>
+</div>
+<!-- Right Column: Achievements & History -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between pb-2 border-b border-surface-highlight">
+<h2 class="text-white text-xl font-bold">Достижения</h2>
+</div>
+<div class="bg-surface-dark border border-surface-highlight rounded-xl p-4 flex flex-col gap-4">
+<!-- Achievement Item -->
+<div class="flex gap-4 items-start pb-4 border-b border-surface-highlight last:border-0 last:pb-0">
+<div class="size-10 rounded-lg bg-yellow-500/10 flex items-center justify-center shrink-0 border border-yellow-500/20 text-yellow-500">
+<span class="material-symbols-outlined">emoji_events</span>
+</div>
+<div class="flex flex-col">
+<p class="text-white font-bold text-sm">Winter Hackathon 2023</p>
+<p class="text-text-secondary text-xs mt-0.5">2-е место (Silver)</p>
+<span class="text-[10px] text-text-secondary/60 mt-1">15 Дек 2023</span>
+</div>
+</div>
+<!-- Achievement Item -->
+<div class="flex gap-4 items-start pb-4 border-b border-surface-highlight last:border-0 last:pb-0">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-primary">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<p class="text-white font-bold text-sm">Algo Battle April</p>
+<p class="text-text-secondary text-xs mt-0.5">Top 10% участников</p>
+<span class="text-[10px] text-text-secondary/60 mt-1">22 Апр 2024</span>
+</div>
+</div>
+<!-- Achievement Item -->
+<div class="flex gap-4 items-start pb-4 border-b border-surface-highlight last:border-0 last:pb-0">
+<div class="size-10 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 border border-green-500/20 text-green-500">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+<div class="flex flex-col">
+<p class="text-white font-bold text-sm">Weekly Challenge #40</p>
+<p class="text-text-secondary text-xs mt-0.5">Решено все 5 задач</p>
+<span class="text-[10px] text-text-secondary/60 mt-1">10 Мар 2024</span>
+</div>
+</div>
+<a class="mt-2 text-center text-xs font-bold text-primary hover:text-white transition-colors uppercase tracking-wide" href="#">Показать всю историю</a>
+</div>
+<!-- Quick Stats / Badge -->
+<div class="bg-gradient-to-br from-primary/20 to-surface-dark border border-primary/20 rounded-xl p-5 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 text-primary/10 rotate-12">
+<span class="material-symbols-outlined text-[100px]">rocket_launch</span>
+</div>
+<div class="relative z-10">
+<h3 class="text-white font-bold text-lg mb-1">Серия побед</h3>
+<p class="text-text-secondary text-sm mb-3">Ты решаешь задачи 5 дней подряд! Так держать!</p>
+<div class="w-full bg-surface-highlight rounded-full h-2 mb-2">
+<div class="bg-primary h-2 rounded-full" style="width: 70%"></div>
+</div>
+<p class="text-xs text-right text-primary font-mono">5/7 дней</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

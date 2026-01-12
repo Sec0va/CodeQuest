@@ -17,8 +17,8 @@
                     colors: {
                         "primary": "#2b8cee",
                         "background-light": "#f6f7f8",
-                        "background-dark": "#101922", // Matches specific dark bg from request context
-                        "surface-dark": "#192633", // Slightly lighter for cards
+                        "background-dark": "#101922", 
+                        "surface-dark": "#192633", 
                         "border-dark": "#324d67",
                     },
                     fontFamily: {
@@ -51,20 +51,11 @@
 </div>
 <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
 <div class="flex items-center gap-6 lg:gap-9">
-<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Главная</a>
-<a class="text-white text-sm font-medium leading-normal" href="#">Соревнования</a>
-<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Рейтинг</a>
-<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Ресурсы</a>
+<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="home.html">Главная страница</a>
+<a class="text-white text-sm font-medium leading-normal" href="contests.html">Соревнования</a>
+<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="info.html">О нас</a>
 </div>
-<div class="flex gap-2">
-<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-[#233648] hover:bg-[#324d67] text-white text-sm font-bold leading-normal transition-colors">
-<span class="truncate">Войти</span>
-</button>
-<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold leading-normal transition-colors shadow-[0_0_15px_rgba(43,141,238,0.3)]">
-<span class="truncate">Регистрация</span>
-</button>
-</div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-[#324d67]" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXliHuoZwwzZnk_sBaUV_Sko80W06bKi5GSpIbzJT6_xlgmxdbEZgK1JT9Dbxev5BjodBnTsuXWBQ1Ps7n5OsXWkyKuQUUyojIJgl4jSJMnvfe-2NP3dS_AFPtdAarkaIkUGJjtT8tFxY3kAnLW4p2fJTtIEq8S-UmUPwGp0hLyFM0JRMy5RafbRrsIm4GLERDhQyE2aI38rFf9C20Y27ZkP69qRGWxe4LtlGdK726Xd7oSrQkUGnnxqHOIwgNcU6NdDG2F-hSfLcL");'></div>
+<button aria-label="Меню профиля" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-[#324d67] cursor-pointer hover:border-[#92adc9] transition-colors" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXliHuoZwwzZnk_sBaUV_Sko80W06bKi5GSpIbzJT6_xlgmxdbEZgK1JT9Dbxev5BjodBnTsuXWBQ1Ps7n5OsXWkyKuQUUyojIJgl4jSJMnvfe-2NP3dS_AFPtdAarkaIkUGJjtT8tFxY3kAnLW4p2fJTtIEq8S-UmUPwGp0hLyFM0JRMy5RafbRrsIm4GLERDhQyE2aI38rFf9C20Y27ZkP69qRGWxe4LtlGdK726Xd7oSrQkUGnnxqHOIwgNcU6NdDG2F-hSfLcL");'></button>
 </div>
 <div class="md:hidden text-white">
 <span class="material-symbols-outlined">menu</span>
