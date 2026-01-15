@@ -1,303 +1,80 @@
 <!DOCTYPE html>
-<html class="dark" lang="ru"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CodeQuest Календарь</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CodeQuest Календарь</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         "primary": "#2b8cee",
+                        "primary-dark": "#1a6bb5",
                         "background-light": "#f6f7f8",
-                        "background-dark": "#101922",
+                        "background-dark": "#111a22",
+                        "surface-dark": "#233648",
+                        "surface-border": "#324d67",
+                        "text-secondary": "#92adc9",
                     },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "body": ["Noto Sans", "sans-serif"],
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"], "body": ["Noto Sans", "sans-serif"] },
                 },
             },
         }
     </script>
 </head>
-<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-900 dark:text-white overflow-x-hidden">
-<div class="border-b border-solid border-[#233648] bg-[#111a22] px-10 py-3 sticky top-0 z-50">
-<div class="flex items-center justify-between whitespace-nowrap">
-<div class="flex items-center gap-4 text-white">
-<div class="size-8 text-primary">
-<span class="material-symbols-outlined text-[32px]">terminal</span>
-</div>
-<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">CodeQuest</h2>
-</div>
-<div class="flex flex-1 justify-end gap-8 items-center">
-<div class="flex items-center gap-9 hidden md:flex">
-<a class="text-slate-400 hover:text-white text-sm font-medium leading-normal transition-colors" href="home.html">Главная страница</a>
-<a class="text-slate-400 hover:text-white text-sm font-medium leading-normal transition-colors" href="info.html">О нас</a>
-<a class="text-white text-sm font-bold leading-normal relative after:content-[''] after:absolute after:-bottom-6 after:left-0 after:w-full after:h-1 after:bg-primary after:rounded-t-sm" href="#">Календарь</a>
-<a class="text-slate-400 hover:text-white text-sm font-medium leading-normal transition-colors" href="contests.html">Конкурсы</a>
-<a class="text-slate-400 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Рейтинг</a>
-</div>
-<div class="flex items-center gap-4">
-<button class="text-slate-400 hover:text-white">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<a aria-label="Профиль пользователя" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-[#233648] block hover:opacity-80 transition-opacity" href="#" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChTmaPcv0gXyROP8HkRRilE1YJEMDHHzJ7HiqqNzMVm69vNU10YMV-BPiGlR43yS_RzyNK9BscaReGN7Gw-AJgNG_FGQpdPf6_XHDIkAxGG2xWUdOerunLq2m7IDorfM4944_so6NYf05xluWOHHEQOVqDY_cah71vUsNgPP_Vy-L_qdTzkQgNiPXkHoOl4tVfmMRQ5njh9FGSdYMi5tTtiZXPtKUt56c0kyY9n8qJzNb1yIOv57Yh2G8Yf542vnxH6el2pDCZ8WHF");'></a>
-</div>
-</div>
-</div>
-</div>
-<div class="flex flex-1 w-full max-w-[1440px] mx-auto p-4 md:p-8 flex-col gap-6">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-<div class="flex flex-col">
-<h1 class="text-white tracking-tight text-[32px] font-bold leading-tight">Ноябрь 2023</h1>
-<p class="text-slate-400 text-sm mt-1">Планируйте свои предстоящие соревнования</p>
-</div>
-<div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
-<div class="flex gap-2">
-<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-[#233648] text-white hover:bg-[#2f455a] transition-colors">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-<button class="flex h-10 px-4 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-[#233648] text-white text-sm font-bold hover:bg-[#2f455a] transition-colors">
-                    Сегодня
-                </button>
-<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-[#233648] text-white hover:bg-[#2f455a] transition-colors">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
-<div class="flex h-10 items-center justify-center rounded-lg bg-[#233648] p-1 ml-auto md:ml-2">
-<label class="flex cursor-pointer h-full items-center justify-center rounded-md px-3 has-[:checked]:bg-[#111a22] has-[:checked]:text-white has-[:checked]:shadow-sm text-[#92adc9] text-sm font-medium transition-all">
-<span>Месяц</span>
-<input checked="" class="invisible w-0 absolute" name="view-type" type="radio" value="Month"/>
-</label>
-<label class="flex cursor-pointer h-full items-center justify-center rounded-md px-3 has-[:checked]:bg-[#111a22] has-[:checked]:text-white has-[:checked]:shadow-sm text-[#92adc9] text-sm font-medium transition-all">
-<span>Неделя</span>
-<input class="invisible w-0 absolute" name="view-type" type="radio" value="Week"/>
-</label>
-<label class="flex cursor-pointer h-full items-center justify-center rounded-md px-3 has-[:checked]:bg-[#111a22] has-[:checked]:text-white has-[:checked]:shadow-sm text-[#92adc9] text-sm font-medium transition-all">
-<span>Список</span>
-<input class="invisible w-0 absolute" name="view-type" type="radio" value="List"/>
-</label>
-</div>
-<button class="flex h-10 px-4 items-center justify-center gap-2 rounded-lg bg-primary text-white text-sm font-bold hover:bg-blue-600 transition-colors ml-2 shadow-lg shadow-blue-900/20">
-<span class="material-symbols-outlined text-[18px]">add</span>
-<span class="hidden sm:inline">Добавить событие</span>
-</button>
-</div>
-</div>
-<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#233648] text-xs font-medium text-white hover:bg-primary/20 hover:text-primary border border-transparent hover:border-primary/30 transition-all whitespace-nowrap">
-<span class="size-2 rounded-full bg-green-400"></span> Новичок
-        </button>
-<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#233648] text-xs font-medium text-white hover:bg-primary/20 hover:text-primary border border-transparent hover:border-primary/30 transition-all whitespace-nowrap">
-<span class="size-2 rounded-full bg-yellow-400"></span> Средний
-        </button>
-<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#233648] text-xs font-medium text-white hover:bg-primary/20 hover:text-primary border border-transparent hover:border-primary/30 transition-all whitespace-nowrap">
-<span class="size-2 rounded-full bg-red-400"></span> Продвинутый
-        </button>
-<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#233648] text-xs font-medium text-white hover:bg-primary/20 hover:text-primary border border-transparent hover:border-primary/30 transition-all whitespace-nowrap">
-<span class="material-symbols-outlined text-[16px]">code</span> Python
-        </button>
-<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#233648] text-xs font-medium text-white hover:bg-primary/20 hover:text-primary border border-transparent hover:border-primary/30 transition-all whitespace-nowrap">
-<span class="material-symbols-outlined text-[16px]">terminal</span> C++
-        </button>
-</div>
-<div class="flex flex-col bg-[#111a22] rounded-xl border border-[#233648] overflow-hidden shadow-2xl">
-<div class="grid grid-cols-7 border-b border-[#233648]">
-<div class="py-3 text-center text-sm font-bold text-slate-400">Вс</div>
-<div class="py-3 text-center text-sm font-bold text-slate-400">Пн</div>
-<div class="py-3 text-center text-sm font-bold text-slate-400">Вт</div>
-<div class="py-3 text-center text-sm font-bold text-slate-400">Ср</div>
-<div class="py-3 text-center text-sm font-bold text-slate-400">Чт</div>
-<div class="py-3 text-center text-sm font-bold text-slate-400">Пт</div>
-<div class="py-3 text-center text-sm font-bold text-slate-400">Сб</div>
-</div>
-<div class="grid grid-cols-7 auto-rows-[minmax(120px,1fr)] gap-px bg-[#233648]">
-<div class="bg-[#111a22]/50 p-2 min-h-[120px]">
-<span class="text-slate-600 text-sm font-medium">29</span>
-</div>
-<div class="bg-[#111a22]/50 p-2 min-h-[120px]">
-<span class="text-slate-600 text-sm font-medium">30</span>
-</div>
-<div class="bg-[#111a22]/50 p-2 min-h-[120px]">
-<span class="text-slate-600 text-sm font-medium">31</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">1</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">2</span>
-<div class="w-full bg-emerald-900/30 border border-emerald-500/30 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-emerald-900/50 transition-colors">
-<div class="flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-emerald-400"></span>
-<span class="text-[10px] font-bold text-emerald-100 uppercase tracking-wider">Новичок</span>
-</div>
-<p class="text-xs text-white font-medium truncate">Основы Python</p>
-<p class="text-[10px] text-emerald-200/70">14:00</p>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">3</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">4</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<div class="flex justify-between items-start">
-<span class="flex size-7 items-center justify-center rounded-full bg-primary text-white text-sm font-bold shadow-[0_0_10px_rgba(43,140,238,0.5)]">5</span>
-</div>
-<div class="w-full bg-primary/20 border border-primary/40 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-primary/30 transition-colors shadow-sm">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-[12px] text-blue-200">emoji_events</span>
-<p class="text-xs text-white font-bold truncate">Еженедельный CodeQuest</p>
-</div>
-<p class="text-[10px] text-blue-200/80">Старт через 2ч</p>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">6</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">7</span>
-<div class="w-full bg-purple-900/30 border border-purple-500/30 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-purple-900/50 transition-colors">
-<div class="flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-purple-400"></span>
-<span class="text-[10px] font-bold text-purple-100 uppercase tracking-wider">Семинар</span>
-</div>
-<p class="text-xs text-white font-medium truncate">Отладка 101</p>
-<p class="text-[10px] text-purple-200/70">16:30</p>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">8</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">9</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">10</span>
-<div class="w-full bg-amber-900/30 border border-amber-500/30 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-amber-900/50 transition-colors">
-<div class="flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-amber-400"></span>
-<span class="text-[10px] font-bold text-amber-100 uppercase tracking-wider">Средний</span>
-</div>
-<p class="text-xs text-white font-medium truncate">Алгоритмическая логика</p>
-<p class="text-[10px] text-amber-200/70">10:00</p>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">11</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">12</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">13</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">14</span>
-<div class="w-full bg-emerald-900/30 border border-emerald-500/30 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-emerald-900/50 transition-colors">
-<div class="flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-emerald-400"></span>
-<span class="text-[10px] font-bold text-emerald-100 uppercase tracking-wider">Новичок</span>
-</div>
-<p class="text-xs text-white font-medium truncate">Переменные и циклы</p>
-<p class="text-[10px] text-emerald-200/70">14:00</p>
-</div>
-<div class="hidden md:flex w-full bg-rose-900/30 border border-rose-500/30 rounded px-2 py-1.5 flex-col gap-0.5 hover:bg-rose-900/50 transition-colors">
-<div class="flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-rose-400"></span>
-<span class="text-[10px] font-bold text-rose-100 uppercase tracking-wider">Хакатон</span>
-</div>
-<p class="text-xs text-white font-medium truncate">Обзор Спринта</p>
-<p class="text-[10px] text-rose-200/70">18:00</p>
-</div>
-<div class="md:hidden w-full text-[10px] text-slate-400 font-medium pl-1">+еще 1</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">15</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">16</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">17</span>
-<div class="w-[150%] z-10 bg-indigo-600/90 border border-indigo-400/50 rounded px-2 py-1.5 flex items-center justify-between gap-2 shadow-lg hover:scale-[1.02] transition-transform">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[14px] text-white">rocket_launch</span>
-<p class="text-xs text-white font-bold whitespace-nowrap">Международный ИИ Хакатон</p>
-</div>
-<span class="text-[10px] bg-white/20 px-1 rounded text-white">День 1/2</span>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">18</span>
-<div class="w-full h-[34px]"></div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">19</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">20</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">21</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">22</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">23</span>
-<div class="w-full bg-amber-900/30 border border-amber-500/30 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-amber-900/50 transition-colors">
-<div class="flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-amber-400"></span>
-<span class="text-[10px] font-bold text-amber-100 uppercase tracking-wider">Средний</span>
-</div>
-<p class="text-xs text-white font-medium truncate">Структуры данных</p>
-<p class="text-[10px] text-amber-200/70">10:00</p>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">24</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">25</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative flex flex-col gap-1">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">26</span>
-<div class="w-full bg-primary/20 border border-primary/40 rounded px-2 py-1.5 flex flex-col gap-0.5 hover:bg-primary/30 transition-colors shadow-sm">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-[12px] text-blue-200">code_blocks</span>
-<p class="text-xs text-white font-bold truncate">Скоростное программирование</p>
-</div>
-<p class="text-[10px] text-blue-200/80">15:00</p>
-</div>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">27</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">28</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">29</span>
-</div>
-<div class="bg-[#111a22] p-2 min-h-[120px] group hover:bg-[#1a2632] transition-colors cursor-pointer relative">
-<span class="text-slate-300 text-sm font-medium group-hover:text-white">30</span>
-</div>
-<div class="bg-[#111a22]/50 p-2 min-h-[120px]">
-<span class="text-slate-600 text-sm font-medium">1</span>
-</div>
-<div class="bg-[#111a22]/50 p-2 min-h-[120px]">
-<span class="text-slate-600 text-sm font-medium">2</span>
-</div>
-</div>
-</div>
-</div>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-white overflow-x-hidden">
+    
+    <header class="sticky top-0 z-50 w-full border-b border-surface-border bg-[#111a22]/95 backdrop-blur-sm">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <a href="home.html" class="flex items-center gap-4 text-white cursor-pointer group">
+                <div class="flex items-center justify-center size-8 rounded-lg bg-primary/20 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">terminal</span>
+                </div>
+                <h2 class="text-white text-xl font-bold leading-tight tracking-tight">CodeQuest</h2>
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-text-secondary hover:text-white text-sm font-medium transition-colors" href="home.html">Главная</a>
+                <a class="text-text-secondary hover:text-white text-sm font-medium transition-colors" href="contests.html">Соревнования</a>
+                <a class="text-white hover:text-primary text-sm font-bold transition-colors" href="calendar.html">Календарь</a>
+                <a class="text-text-secondary hover:text-white text-sm font-medium transition-colors" href="info.html">О нас</a>
+            </nav>
+            <div class="flex items-center gap-4" id="auth-container"></div>
+        </div>
+    </header>
 
-</body></html>
+    <div class="flex flex-1 w-full max-w-[1440px] mx-auto p-4 md:p-8 flex-col gap-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <h1 class="text-white tracking-tight text-[32px] font-bold leading-tight">Январь 2026</h1>
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                <button class="flex h-10 px-4 items-center justify-center gap-2 rounded-lg bg-primary text-white text-sm font-bold hover:bg-blue-600 transition-colors ml-2 shadow-lg shadow-blue-900/20">
+                    <span class="material-symbols-outlined text-[18px]">add</span>
+                    <span class="hidden sm:inline">Добавить событие</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Calendar Grid -->
+        <div class="flex flex-col bg-[#111a22] rounded-xl border border-surface-border overflow-hidden shadow-2xl">
+            <!-- Full names for days -->
+            <div class="grid grid-cols-7 border-b border-surface-border bg-surface-dark">
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Понедельник</div>
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Вторник</div>
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Среда</div>
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Четверг</div>
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Пятница</div>
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Суббота</div>
+                <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">Воскресенье</div>
+            </div>
+            <div id="calendar-grid" class="grid grid-cols-7 auto-rows-[minmax(120px,1fr)] gap-px bg-surface-border">
+                <!-- JS generates cells here -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

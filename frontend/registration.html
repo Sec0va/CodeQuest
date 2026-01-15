@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="ru"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CodeQuest - Вход и Регистрация</title>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Theme Config -->
-<script id="tailwind-config">
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CodeQuest - Вход и Регистрация</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -24,158 +20,112 @@
                         "background-dark": "#101922",
                         "surface-dark": "#16212e",
                     },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "body": ["Space Grotesk", "sans-serif"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
                 },
             },
         }
     </script>
-<style>
-        /* Custom scrollbar for dark theme consistency */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #101922;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2b3b4f;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3a4d66;
-        }
-    </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased min-h-screen flex flex-col overflow-x-hidden relative">
-<!-- Decorative Background Elements -->
-<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden" data-alt="Abstract dark blue gradient background pattern for coding theme">
-<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
-<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[100px]"></div>
-<div class="absolute top-[20%] right-[10%] w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[80px]"></div>
-</div>
-<!-- Navigation -->
-<header class="relative z-20 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-10 bg-white/80 dark:bg-[#111a22]/80 backdrop-blur-md">
-<div class="flex items-center gap-3 text-primary">
-<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-xl">terminal</span>
-</div>
-<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">CodeQuest</h2>
-</div>
-<!-- Navigation Actions -->
-<div class="flex items-center gap-4">
-<span class="hidden sm:block text-sm text-slate-500 dark:text-slate-400 font-medium">Уже есть аккаунт?</span>
-<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-6 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-900 dark:text-white text-sm font-bold tracking-wide">
-<span>Войти</span>
-</button>
-</div>
-</header>
-<!-- Main Content -->
-<main class="relative z-10 flex-grow flex items-center justify-center px-4 py-12 lg:px-8">
-<div class="w-full max-w-[480px] flex flex-col gap-6">
-<!-- Auth Card -->
-<div class="bg-white dark:bg-[#16212e] rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-2xl shadow-black/20 overflow-hidden">
-<!-- Header Section -->
-<div class="px-8 pt-8 pb-4 text-center">
-<h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Добро пожаловать в CodeQuest</h1>
-<p class="text-slate-500 dark:text-slate-400 text-sm">Присоединяйтесь к сообществу и начните побеждать</p>
-</div>
-<!-- Tabs -->
-<div class="px-8 mt-2">
-<div class="flex border-b border-slate-200 dark:border-slate-700">
-<button class="flex-1 pb-3 pt-2 text-center text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-slate-700 dark:hover:text-slate-200 transition-colors relative group">
-                            Вход
-                            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-transparent group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-colors"></span>
-</button>
-<button class="flex-1 pb-3 pt-2 text-center text-primary text-sm font-bold relative">
-                            Регистрация
-                            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-primary"></span>
-</button>
-</div>
-</div>
-<!-- Registration Form -->
-<div class="p-8 flex flex-col gap-5">
-<!-- Username -->
-<label class="flex flex-col gap-1.5">
-<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Имя пользователя</span>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">person</span>
-<input class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600" placeholder="coder123" type="text"/>
-</div>
-</label>
-<!-- Email -->
-<label class="flex flex-col gap-1.5">
-<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Email</span>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">mail</span>
-<input class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600" placeholder="student@example.com" type="email"/>
-</div>
-</label>
-<!-- Password -->
-<label class="flex flex-col gap-1.5">
-<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Пароль</span>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">lock</span>
-<input class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600" placeholder="••••••••" type="password"/>
-<button class="absolute right-0 top-0 h-full px-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors flex items-center justify-center" type="button">
-<span class="material-symbols-outlined text-[20px]">visibility</span>
-</button>
-</div>
-</label>
-<!-- Confirm Password -->
-<label class="flex flex-col gap-1.5">
-<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Подтвердить пароль</span>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">lock_reset</span>
-<input class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600" placeholder="••••••••" type="password"/>
-<button class="absolute right-0 top-0 h-full px-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors flex items-center justify-center" type="button">
-<span class="material-symbols-outlined text-[20px]">visibility</span>
-</button>
-</div>
-</label>
-<!-- Submit Button -->
-<button class="w-full h-12 mt-2 bg-primary hover:bg-blue-600 text-white font-bold rounded-lg shadow-lg shadow-primary/25 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-<span>Зарегистрироваться</span>
-<span class="material-symbols-outlined text-lg">arrow_forward</span>
-</button>
-<!-- Divider -->
-<div class="relative py-2 flex items-center justify-center">
-<div class="absolute inset-0 flex items-center">
-<div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
-</div>
-<span class="relative bg-white dark:bg-[#16212e] px-4 text-xs font-medium text-slate-500 uppercase tracking-wider">Или войдите через</span>
-</div>
-<!-- Social Login -->
-<div class="grid grid-cols-2 gap-4">
-<button class="flex items-center justify-center h-12 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#1f2d3d] transition-colors gap-2 group">
-<!-- Google Icon SVG placeholder -->
-<svg class="w-5 h-5 text-slate-700 dark:text-white group-hover:text-primary transition-colors" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-</svg>
-<span class="text-sm font-bold text-slate-700 dark:text-white">Google</span>
-</button>
-<button class="flex items-center justify-center h-12 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#1f2d3d] transition-colors gap-2 group">
-<!-- GitHub Icon SVG placeholder -->
-<svg class="w-5 h-5 text-slate-900 dark:text-white group-hover:text-primary transition-colors" fill="currentColor" viewbox="0 0 24 24">
-<path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0122 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path>
-</svg>
-<span class="text-sm font-bold text-slate-700 dark:text-white">GitHub</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Footer Links -->
-<div class="text-center">
-<p class="text-slate-500 dark:text-slate-400 text-sm">
-                    Регистрируясь, вы соглашаетесь с нашими <a class="text-primary hover:text-blue-400 hover:underline" href="#">Условиями использования</a> и <a class="text-primary hover:text-blue-400 hover:underline" href="#">Политикой конфиденциальности</a>.
-                </p>
-</div>
-</div>
-</main>
-</body></html>
+    
+    <header class="relative z-20 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-10 bg-white/80 dark:bg-[#111a22]/80 backdrop-blur-md">
+        <a href="home.html" class="flex items-center gap-3 text-primary">
+            <div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-xl">terminal</span>
+            </div>
+            <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">CodeQuest</h2>
+        </a>
+    </header>
+
+    <main class="relative z-10 flex-grow flex items-center justify-center px-4 py-12 lg:px-8">
+        <div class="w-full max-w-[480px] flex flex-col gap-6">
+            <div class="bg-white dark:bg-[#16212e] rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-2xl shadow-black/20 overflow-hidden">
+                <div class="px-8 pt-8 pb-4 text-center">
+                    <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Добро пожаловать</h1>
+                    <p class="text-slate-500 text-sm">Войдите или создайте аккаунт</p>
+                </div>
+                
+                <div class="px-8 mt-2 flex border-b border-slate-200 dark:border-slate-700">
+                    <button id="tab-login" data-target="login" class="auth-toggle flex-1 pb-3 pt-2 text-center text-primary text-sm font-bold relative border-b-2 border-primary transition-colors">Вход</button>
+                    <button id="tab-register" data-target="register" class="auth-toggle flex-1 pb-3 pt-2 text-center text-slate-500 text-sm font-bold relative border-b-2 border-transparent hover:text-white transition-colors">Регистрация</button>
+                </div>
+
+                <div class="p-8">
+                    <!-- Login Form -->
+                    <form id="login-form" class="flex flex-col gap-5">
+                        <label class="flex flex-col gap-1.5">
+                            <span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Email</span>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">mail</span>
+                                <input id="login-email" class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:ring-primary focus:border-primary" placeholder="student@example.com" type="email"/>
+                            </div>
+                        </label>
+                        <label class="flex flex-col gap-1.5">
+                            <span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Пароль</span>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">lock</span>
+                                <input id="login-pass" class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-12 focus:ring-primary focus:border-primary" placeholder="••••••••" type="password"/>
+                            </div>
+                        </label>
+                        <button id="doLogin" class="w-full h-12 mt-2 bg-primary hover:bg-blue-600 text-white font-bold rounded-lg shadow-lg shadow-primary/25 transition-all flex items-center justify-center gap-2">
+                            <span>Войти</span>
+                            <span class="material-symbols-outlined text-lg">login</span>
+                        </button>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="register-form" class="flex flex-col gap-5 hidden">
+                        <label class="flex flex-col gap-1.5">
+                            <span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Имя пользователя</span>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">person</span>
+                                <input id="reg-name" class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:ring-primary focus:border-primary" placeholder="ivan_coder" type="text"/>
+                            </div>
+                        </label>
+                        <label class="flex flex-col gap-1.5">
+                            <span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Email</span>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">mail</span>
+                                <input id="reg-email" class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:ring-primary focus:border-primary" placeholder="student@example.com" type="email"/>
+                            </div>
+                        </label>
+                        <label class="flex flex-col gap-1.5">
+                            <span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Пароль</span>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">lock</span>
+                                <input id="reg-pass" class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-12 focus:ring-primary focus:border-primary" placeholder="••••••••" type="password"/>
+                            </div>
+                        </label>
+                        <button id="doRegister" class="w-full h-12 mt-2 bg-primary hover:bg-blue-600 text-white font-bold rounded-lg shadow-lg shadow-primary/25 transition-all flex items-center justify-center gap-2">
+                            <span>Создать аккаунт</span>
+                            <span class="material-symbols-outlined text-lg">person_add</span>
+                        </button>
+                    </form>
+
+                    <!-- Socials with SVGs -->
+                    <div class="mt-6 flex flex-col gap-4">
+                        <div class="relative flex items-center justify-center">
+                            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-slate-700"></div></div>
+                            <span class="relative bg-white dark:bg-[#16212e] px-2 text-xs text-slate-500 uppercase">Или через</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="flex items-center justify-center gap-2 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                <!-- Google SVG -->
+                                <svg class="size-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Google</span>
+                            </button>
+                            <button class="flex items-center justify-center gap-2 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-white">
+                                <!-- GitHub SVG -->
+                                <svg class="size-5 dark:fill-white fill-slate-900" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-300">GitHub</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

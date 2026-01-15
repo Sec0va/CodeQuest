@@ -1,336 +1,157 @@
 <!DOCTYPE html>
-<html class="dark" lang="ru"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CodeQuest Список соревнований</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CodeQuest Соревнования</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         "primary": "#2b8cee",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#101922", 
-                        "surface-dark": "#192633", 
-                        "border-dark": "#324d67",
+                        "background-dark": "#111a22", 
+                        "surface-dark": "#233648", 
+                        "surface-border": "#324d67",
+                        "text-secondary": "#92adc9",
                     },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "body": ["Noto Sans", "sans-serif"],
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"], "body": ["Noto Sans", "sans-serif"] },
                 },
             },
         }
     </script>
-<style>
-        body {
-            font-family: "Space Grotesk", "Noto Sans", sans-serif;
-        }
-    </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-[#111a22] dark:text-white min-h-screen flex flex-col overflow-x-hidden group/design-root">
-<div class="layout-container flex w-full flex-col bg-[#111a22] border-b border-[#233648]">
-<div class="px-4 md:px-10 flex justify-center">
-<div class="layout-content-container flex flex-col max-w-[1200px] flex-1 w-full">
-<header class="flex items-center justify-between whitespace-nowrap py-3">
-<div class="flex items-center gap-4 text-white">
-<div class="size-8 text-primary">
-<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">CodeQuest</h2>
-</div>
-<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
-<div class="flex items-center gap-6 lg:gap-9">
-<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="home.html">Главная страница</a>
-<a class="text-white text-sm font-medium leading-normal" href="contests.html">Соревнования</a>
-<a class="text-[#92adc9] hover:text-white text-sm font-medium leading-normal transition-colors" href="info.html">О нас</a>
-</div>
-<button aria-label="Меню профиля" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border border-[#324d67] cursor-pointer hover:border-[#92adc9] transition-colors" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXliHuoZwwzZnk_sBaUV_Sko80W06bKi5GSpIbzJT6_xlgmxdbEZgK1JT9Dbxev5BjodBnTsuXWBQ1Ps7n5OsXWkyKuQUUyojIJgl4jSJMnvfe-2NP3dS_AFPtdAarkaIkUGJjtT8tFxY3kAnLW4p2fJTtIEq8S-UmUPwGp0hLyFM0JRMy5RafbRrsIm4GLERDhQyE2aI38rFf9C20Y27ZkP69qRGWxe4LtlGdK726Xd7oSrQkUGnnxqHOIwgNcU6NdDG2F-hSfLcL");'></button>
-</div>
-<div class="md:hidden text-white">
-<span class="material-symbols-outlined">menu</span>
-</div>
-</header>
-</div>
-</div>
-</div>
-<div class="flex-1 flex justify-center w-full px-4 md:px-10 py-6 md:py-10">
-<div class="flex flex-col max-w-[1200px] w-full gap-8">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-<div class="flex flex-col gap-2">
-<h1 class="text-white text-3xl md:text-5xl font-bold tracking-tight">Предстоящие соревнования</h1>
-<p class="text-[#92adc9] text-base md:text-lg font-normal">Найдите свой следующий вызов и повысьте свои навыки программирования.</p>
-</div>
-</div>
-<div class="flex flex-col lg:flex-row gap-4 w-full">
-<div class="flex-1">
-<label class="flex flex-col w-full h-12">
-<div class="flex w-full flex-1 items-stretch rounded-xl h-full bg-[#192633] border border-[#324d67] focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all overflow-hidden">
-<div class="text-[#92adc9] flex items-center justify-center pl-4 pr-2">
-<span class="material-symbols-outlined text-[24px]">search</span>
-</div>
-<input class="flex w-full min-w-0 flex-1 bg-transparent border-none text-white focus:ring-0 placeholder:text-[#58738e] px-2 text-base font-normal h-full" placeholder="Искать соревнования по названию, платформе или тегам..." value=""/>
-</div>
-</label>
-</div>
-<div class="flex flex-wrap gap-2 md:gap-3">
-<button class="group flex h-12 items-center justify-center gap-x-2 rounded-xl bg-[#192633] border border-[#324d67] hover:border-[#92adc9] px-4 transition-colors">
-<span class="material-symbols-outlined text-[#92adc9] group-hover:text-white text-[20px]">sort</span>
-<span class="text-white text-sm font-medium whitespace-nowrap">Сортировать: Дата</span>
-</button>
-<button class="group flex h-12 items-center justify-center gap-x-2 rounded-xl bg-[#192633] border border-[#324d67] hover:border-[#92adc9] px-4 transition-colors">
-<span class="material-symbols-outlined text-[#92adc9] group-hover:text-white text-[20px]">filter_list</span>
-<span class="text-white text-sm font-medium whitespace-nowrap">Уровень</span>
-</button>
-<button class="group flex h-12 items-center justify-center gap-x-2 rounded-xl bg-[#192633] border border-[#324d67] hover:border-[#92adc9] px-4 transition-colors">
-<span class="material-symbols-outlined text-[#92adc9] group-hover:text-white text-[20px]">dns</span>
-<span class="text-white text-sm font-medium whitespace-nowrap">Платформа</span>
-</button>
-<div class="hidden sm:flex w-[1px] h-8 self-center bg-[#324d67] mx-1"></div>
-<button class="flex size-12 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-blue-500/20">
-<span class="material-symbols-outlined text-[24px]">grid_view</span>
-</button>
-<button class="flex size-12 items-center justify-center rounded-xl bg-[#192633] border border-[#324d67] text-[#92adc9] hover:text-white hover:border-[#92adc9]">
-<span class="material-symbols-outlined text-[24px]">list</span>
-</button>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-<div class="flex flex-col gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-5 hover:border-primary hover:-translate-y-1 transition-all duration-300 group shadow-lg shadow-black/20">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden p-1">
-<div class="bg-contain bg-center bg-no-repeat w-full h-full" data-alt="Codeforces Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBHB6koVFvtpaBwDtk6IRMNnX7qYKsbQJoJ9zjDhO3AeI6JtM1LpxM6azPrqErZaC9Hg79BYeY5yNt0v2YWhevKB-AiJoP8clQZU0k-s9kzGGvqX2yLJtnRNIEb732sljZ5lbJMDvXiNeEbd_7j6RHev-X8wAVjVfd9_1kI3fCLJkb24OaFc70GVFaHEQy8mithm2PCKXWmSGumTrtzT8Qjf8bUG3FsVbwjD2ER3vBeN-ceabUnlzPE0Kj-0VwqCiWUzuVaOF-Uz2po");'></div>
-</div>
-<div>
-<p class="text-xs text-[#92adc9] uppercase tracking-wider font-semibold">Платформа</p>
-<p class="text-white font-bold text-sm">Codeforces</p>
-</div>
-</div>
-<span class="px-2.5 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-wide">Средний</span>
-</div>
-<div class="py-2 flex-1">
-<h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Codeforces Round #930 (Div. 2)</h3>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>Сегодня, 14:30</span>
-</div>
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span>Длительность: 2ч 00м</span>
-</div>
-</div>
-</div>
-<div class="w-full bg-[#233648] h-[1px]"></div>
-<div class="pt-1 flex items-center gap-3">
-<button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Зарегистрироваться сейчас
-                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-[#324d67] bg-[#233648] text-[#92adc9] hover:text-white hover:bg-[#324d67] transition-colors" title="Сохранить на потом">
-<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
-</button>
-</div>
-</div>
-<div class="flex flex-col gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-5 hover:border-primary hover:-translate-y-1 transition-all duration-300 group shadow-lg shadow-black/20">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-lg bg-white bg-opacity-100 flex items-center justify-center overflow-hidden p-1">
-<div class="bg-contain bg-center bg-no-repeat w-full h-full" data-alt="AtCoder Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCs4ogExOy_EKC4PC1J2u8qtp6CpbspTE0A_Fk5aUMPusCBybQmRFLFtQ1yrlIebWtJbPzpyqEOjWb47AYRVjShQEmLD96iMy1zSzvKzl41BtksPoguubGigmFsoUA4YhOmNQwZBGdncXMLCi1L8bvFteZJmlIdIFSDzmLJG3VZ7tEosExU-D9zczTxZNVO2Bkv-WQ_2Xt4J0yUDXrpb3eV1XjXedpDzDWLdU6iMutxzaA4LThNC2LwpioeM1stpV4U4hs-F0DMDjGN");'></div>
-</div>
-<div>
-<p class="text-xs text-[#92adc9] uppercase tracking-wider font-semibold">Платформа</p>
-<p class="text-white font-bold text-sm">AtCoder</p>
-</div>
-</div>
-<span class="px-2.5 py-1 rounded-md bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wide">Начальный</span>
-</div>
-<div class="py-2 flex-1">
-<h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">AtCoder Beginner Contest 342</h3>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>24 окт, 10:00</span>
-</div>
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span>Длительность: 1ч 40м</span>
-</div>
-</div>
-</div>
-<div class="w-full bg-[#233648] h-[1px]"></div>
-<div class="pt-1 flex items-center gap-3">
-<button class="flex-1 bg-[#233648] hover:bg-[#324d67] text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Подробнее
-                    </button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-[#324d67] bg-[#233648] text-[#92adc9] hover:text-white hover:bg-[#324d67] transition-colors" title="Сохранить на потом">
-<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
-</button>
-</div>
-</div>
-<div class="flex flex-col gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-5 hover:border-primary hover:-translate-y-1 transition-all duration-300 group shadow-lg shadow-black/20">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-lg bg-[#2d2d2d] flex items-center justify-center overflow-hidden p-1.5">
-<div class="bg-contain bg-center bg-no-repeat w-full h-full" data-alt="LeetCode Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBkw1PzsAUM67q0diBaNNjasOI76VcBCk7VxmyXDYNvhXp9W3wZae_ZO7ZVB7o814xlA74mN3JeSUwJ-r1z8HsO6DrT76MF_y4x4a5cQn4pN8z4MCvY1dFNvUxqWlZgahkg078IYUmpNXK2T6Di-cERA8vsTBzkV4_ZoD5LJYXpnEuUOvPmKEIPY3VaOlHnWa7ifufC8d6CEw5sZdQcxbREWiQHYNc-a9eR0W9ogGB6rilr7xagtkcNFB5YbYSPumjdOw-0Xd4fUL5T"); filter: invert(1);'></div>
-</div>
-<div>
-<p class="text-xs text-[#92adc9] uppercase tracking-wider font-semibold">Платформа</p>
-<p class="text-white font-bold text-sm">LeetCode</p>
-</div>
-</div>
-<span class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-bold uppercase tracking-wide">Смешанный</span>
-</div>
-<div class="py-2 flex-1">
-<h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Weekly Contest 386</h3>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>Воскресенье, 08:00</span>
-</div>
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span>Длительность: 1ч 30м</span>
-</div>
-</div>
-</div>
-<div class="w-full bg-[#233648] h-[1px]"></div>
-<div class="pt-1 flex items-center gap-3">
-<button class="flex-1 bg-[#233648] hover:bg-[#324d67] text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Подробнее
-                    </button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-[#324d67] bg-[#233648] text-[#92adc9] hover:text-white hover:bg-[#324d67] transition-colors" title="Сохранить на потом">
-<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
-</button>
-</div>
-</div>
-<div class="flex flex-col gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-5 hover:border-primary hover:-translate-y-1 transition-all duration-300 group shadow-lg shadow-black/20">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-lg bg-white flex items-center justify-center overflow-hidden p-1">
-<div class="bg-contain bg-center bg-no-repeat w-full h-full" data-alt="CodeChef Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAo8CP9bKjZfpnMBZPzIW1vlquBrt1fD_dgFZDWQgFBElmtRWTuNr4p6TJ1H1mc6EzyPCyDwh6Mugj5y9GFytlTif4KgroEumHLjHNqFYUm__ofjwid16vocpsC_bbwJpKr6kM8CtCsvqvjgQdOlgaXAeirMhhiwSSguIXoReWhS33qqFBf4NFsxxGf2MYRqPU60kR0M87-Qnbp2ASXTvErgKo4dZnt9OmxQ4_c8x69Lse-1-T0ruRwsttSFExtilzBCprV7SxNDt15");'></div>
-</div>
-<div>
-<p class="text-xs text-[#92adc9] uppercase tracking-wider font-semibold">Платформа</p>
-<p class="text-white font-bold text-sm">CodeChef</p>
-</div>
-</div>
-<span class="px-2.5 py-1 rounded-md bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wide">Начальный</span>
-</div>
-<div class="py-2 flex-1">
-<h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Starters 123 (Rated for Div 2, 3 &amp; 4)</h3>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>28 фев, 16:00</span>
-</div>
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span>Длительность: 2ч 00м</span>
-</div>
-</div>
-</div>
-<div class="w-full bg-[#233648] h-[1px]"></div>
-<div class="pt-1 flex items-center gap-3">
-<button class="flex-1 bg-[#233648] hover:bg-[#324d67] text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Подробнее
-                    </button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-[#324d67] bg-[#233648] text-[#92adc9] hover:text-white hover:bg-[#324d67] transition-colors" title="Сохранить на потом">
-<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
-</button>
-</div>
-</div>
-<div class="flex flex-col gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-5 hover:border-primary hover:-translate-y-1 transition-all duration-300 group shadow-lg shadow-black/20">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-lg bg-[#2ec866] flex items-center justify-center overflow-hidden p-2">
-<div class="bg-contain bg-center bg-no-repeat w-full h-full" data-alt="HackerRank Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJ-bCqx98ACIC3WQUaRElYAjAMWVhwr0iLiBnHVcKxC4Lp3sPbMZSSv47SLH0-2m6-7GM3pKyMIyaf4Bgzk1M42Mfm4V_3bJt8OOxHOTrBLClmoXclB7Uq6FGIIiphI0epyozFRnOeWjbL8uBp0fdebEwtGkXqyqz0iK7puojYr3JSfVyGOmpot7M0cVJjLqUdEZdcAqNj5SKoCz0Bk-6OK9jRzy6-hcZjiS7ZcXIw4AZmSu3fv0OYa2yKUh95fcyJ-NRmLuEsnG1o"); filter: brightness(0) invert(1);'></div>
-</div>
-<div>
-<p class="text-xs text-[#92adc9] uppercase tracking-wider font-semibold">Платформа</p>
-<p class="text-white font-bold text-sm">HackerRank</p>
-</div>
-</div>
-<span class="px-2.5 py-1 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-wide">Продвинутый</span>
-</div>
-<div class="py-2 flex-1">
-<h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">World CodeSprint Championship</h3>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>5 марта, 12:00</span>
-</div>
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span>Длительность: 24ч 00м</span>
-</div>
-</div>
-</div>
-<div class="w-full bg-[#233648] h-[1px]"></div>
-<div class="pt-1 flex items-center gap-3">
-<button class="flex-1 bg-[#233648] hover:bg-[#324d67] text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Подробнее
-                    </button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-[#324d67] bg-[#233648] text-[#92adc9] hover:text-white hover:bg-[#324d67] transition-colors" title="Сохранить на потом">
-<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
-</button>
-</div>
-</div>
-<div class="flex flex-col gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-5 hover:border-primary hover:-translate-y-1 transition-all duration-300 group shadow-lg shadow-black/20">
-<div class="flex justify-between items-start">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-lg bg-white flex items-center justify-center overflow-hidden p-2">
-<div class="bg-contain bg-center bg-no-repeat w-full h-full" data-alt="Google Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOzXHEg-6u05sww1j-v3eJw0Rw7WZRrb7Dl3JZfAKxmyw7-QgPVKJju_0xgAabsrUuv5xnRgvZ9C8JB4Cpk_lA5MCi9bKcVauus8mBzgt9shbrhpq9eiJbDCeW-5YZA49jhQyYajnmW-ym1hoHDtnS8BOU72LhPe-GoQdl51si2-Y9jhlJvNDy3V0TX6gl_gZ-vpvlge2rqn_WEgwJtKzbWQfX1zya8VCmFkPS9w_ub706VArC-sLjDlVi0b2AUsJN4q6PYmXNrmC4");'></div>
-</div>
-<div>
-<p class="text-xs text-[#92adc9] uppercase tracking-wider font-semibold">Платформа</p>
-<p class="text-white font-bold text-sm">Google</p>
-</div>
-</div>
-<span class="px-2.5 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-wide">Средний</span>
-</div>
-<div class="py-2 flex-1">
-<h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Kick Start Round A</h3>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">calendar_month</span>
-<span>20 марта, TBA</span>
-</div>
-<div class="flex items-center gap-2 text-[#92adc9] text-sm">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span>Длительность: 3ч 00м</span>
-</div>
-</div>
-</div>
-<div class="w-full bg-[#233648] h-[1px]"></div>
-<div class="pt-1 flex items-center gap-3">
-<button class="flex-1 bg-[#233648] hover:bg-[#324d67] text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Подробнее
-                    </button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-[#324d67] bg-[#233648] text-[#92adc9] hover:text-white hover:bg-[#324d67] transition-colors" title="Сохранить на потом">
-<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
-</button>
-</div>
-</div>
-</div>
-<div class="flex justify-center mt-4">
-<button class="flex items-center gap-2 px-8 py-3 rounded-xl bg-[#192633] border border-[#324d67] text-white font-bold text-sm hover:bg-[#233648] hover:border-[#92adc9] transition-all">
-                Загрузить больше соревнований
-                <span class="material-symbols-outlined text-[20px]">expand_more</span>
-</button>
-</div>
-</div>
-</div>
+<body class="bg-background-light dark:bg-background-dark text-white min-h-screen flex flex-col font-display">
+    
+    <header class="sticky top-0 z-50 w-full border-b border-surface-border bg-[#111a22]/95 backdrop-blur-sm">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <a href="home.html" class="flex items-center gap-4 text-white cursor-pointer group">
+                <div class="flex items-center justify-center size-8 rounded-lg bg-primary/20 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">terminal</span>
+                </div>
+                <h2 class="text-white text-xl font-bold leading-tight tracking-tight">CodeQuest</h2>
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-text-secondary hover:text-white text-sm font-medium transition-colors" href="home.html">Главная</a>
+                <a class="text-white hover:text-primary text-sm font-bold transition-colors" href="contests.html">Соревнования</a>
+                <a class="text-text-secondary hover:text-white text-sm font-medium transition-colors" href="calendar.html">Календарь</a>
+                <a class="text-text-secondary hover:text-white text-sm font-medium transition-colors" href="info.html">О нас</a>
+            </nav>
+            <div class="flex items-center gap-4" id="auth-container"></div>
+        </div>
+    </header>
 
-</body></html>
+    <div class="flex-1 flex justify-center w-full px-4 md:px-10 py-6 md:py-10">
+        <div class="flex flex-col max-w-[1200px] w-full gap-8">
+            <h1 class="text-white text-3xl md:text-5xl font-bold tracking-tight">Предстоящие соревнования</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Card 1 -->
+                <div onclick="openContestModal('Codeforces Round #930', 'Codeforces', 'Сегодня, 14:30', 'Средний (Div 2)', 'Это рейтинговый раунд для второго дивизиона. Включает 6 задач возрастающей сложности. У вас будет 2 часа на решение. Задачи покрывают темы от жадных алгоритмов до графов.', 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1000&auto=format&fit=crop')" class="cursor-pointer flex flex-col gap-4 rounded-xl border border-surface-border bg-[#192633] p-5 hover:border-primary hover:shadow-lg transition-all duration-300 group">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-white text-[32px]">code</span>
+                            <div>
+                                <p class="text-xs text-[#92adc9] uppercase font-semibold">Платформа</p>
+                                <p class="text-white font-bold text-sm">Codeforces</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase">Средний</span>
+                    </div>
+                    <div class="py-2 flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Codeforces Round #930</h3>
+                        <div class="flex items-center gap-2 text-[#92adc9] text-sm">
+                            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                            <span>Сегодня, 14:30</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-surface-border h-[1px]"></div>
+                    <button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                        Подробнее
+                    </button>
+                </div>
+
+                 <!-- Card 2 -->
+                 <div onclick="openContestModal('Weekly Contest 386', 'LeetCode', 'Завтра, 08:00', 'Смешанный', 'Еженедельный контест LeetCode. Состоит из 4 задач: Easy, Medium, Medium, Hard. Отличный способ подготовиться к техническим интервью в FAANG.', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000&auto=format&fit=crop')" class="cursor-pointer flex flex-col gap-4 rounded-xl border border-surface-border bg-[#192633] p-5 hover:border-primary hover:shadow-lg transition-all duration-300 group">
+                    <div class="flex justify-between items-start">
+                         <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-white text-[32px]">terminal</span>
+                            <div>
+                                <p class="text-xs text-[#92adc9] uppercase font-semibold">Платформа</p>
+                                <p class="text-white font-bold text-sm">LeetCode</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-bold uppercase">Смешанный</span>
+                    </div>
+                    <div class="py-2 flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">Weekly Contest 386</h3>
+                        <div class="flex items-center gap-2 text-[#92adc9] text-sm">
+                            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                            <span>Завтра, 08:00</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-surface-border h-[1px]"></div>
+                    <button class="flex-1 bg-[#233648] hover:bg-surface-dark text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                        Подробнее
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="contest-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeContestModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-[#111a22] border border-surface-border w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col relative animate-[fadeIn_0.2s_ease-out] overflow-hidden">
+                
+                <!-- Modal Image Header -->
+                <div class="h-48 w-full relative">
+                    <img id="modal-image" src="" alt="Contest Cover" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111a22] to-transparent"></div>
+                    <button onclick="closeContestModal()" class="absolute top-4 right-4 bg-black/50 hover:bg-black/80 rounded-full p-2 text-white transition-colors backdrop-blur-md">
+                        <span class="material-symbols-outlined text-[20px]">close</span>
+                    </button>
+                    <div class="absolute bottom-4 left-8">
+                        <span id="modal-platform" class="text-primary font-bold tracking-widest text-xs uppercase mb-1 block">Платформа</span>
+                        <h2 id="modal-title" class="text-3xl font-bold text-white shadow-black drop-shadow-lg">Название</h2>
+                    </div>
+                </div>
+
+                <div class="p-8 pb-4 bg-[#111a22]">
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <div class="flex items-center gap-2 text-text-secondary bg-surface-dark px-3 py-1.5 rounded-lg border border-surface-border">
+                            <span class="material-symbols-outlined text-[18px]">schedule</span>
+                            <span id="modal-time" class="text-sm font-medium">Время</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-text-secondary bg-surface-dark px-3 py-1.5 rounded-lg border border-surface-border">
+                            <span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+                            <span id="modal-diff" class="text-sm font-medium">Сложность</span>
+                        </div>
+                    </div>
+
+                    <div class="prose prose-invert max-w-none">
+                        <h4 class="text-white font-bold mb-2 text-lg">О соревновании</h4>
+                        <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed">
+                            <!-- Description here -->
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-6 border-t border-surface-border flex gap-4 bg-[#16212e]">
+                    <button onclick="alert('Вы успешно зарегистрированы! Ссылка отправлена на почту.')" class="flex-1 h-12 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">how_to_reg</span>
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
