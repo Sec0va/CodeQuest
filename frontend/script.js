@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUser = JSON.parse(localStorage.getItem('codequest_user'));
     
     updateAuthUI(currentUser);
-    initCalendar();
+    initCalendar(); // Календарь теперь генерирует кликабельные события
     initAuthForms();
     initProfilePage(currentUser);
     updateHomeCTA(currentUser);
@@ -45,11 +45,14 @@ function updateAuthUI(user) {
             <a href="registration.html" class="hidden md:flex items-center justify-center rounded-lg h-9 px-4 bg-primary hover:bg-primary-dark text-white text-sm font-bold transition-all shadow-lg shadow-primary/20">
                 <span>Войти</span>
             </a>
-            <button class="md:hidden text-white">
-                <span class="material-symbols-outlined">menu</span>
+            <button onclick="window.location.href='registration.html'" class="md:hidden text-white">
+                <span class="material-symbols-outlined">login</span>
             </button>
         `;
     }
+    
+    // Переинициализация слушателей уведомлений после обновления DOM
+    initNotifications();
 }
 
 function initNotifications() {
@@ -57,12 +60,15 @@ function initNotifications() {
     const dropdown = document.getElementById('notif-dropdown');
     
     if(btn && dropdown) {
-        btn.addEventListener('click', (e) => {
+        // Удаляем старые слушатели, чтобы не дублировать (если функция вызывается повторно)
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        
+        newBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdown.classList.toggle('hidden');
         });
         
-        // Закрыть при клике вне
         document.addEventListener('click', () => {
             if(!dropdown.classList.contains('hidden')) dropdown.classList.add('hidden');
         });
@@ -121,7 +127,6 @@ function initAuthForms() {
             const email = document.getElementById('reg-email').value;
             const pass = document.getElementById('reg-pass').value;
 
-            // Проверка почты (симуляция базы данных)
             const existingEmails = ['admin@codequest.com', 'test@test.com', 'ivan@mail.ru'];
             if (existingEmails.includes(email)) {
                 alert('Ошибка: Пользователь с таким email уже существует!');
@@ -138,7 +143,7 @@ function initAuthForms() {
                 email: email,
                 handle: '@' + name.toLowerCase().replace(/\s/g, '_'),
                 location: 'Не указано',
-                avatar: null // Будет сгенерирован автоматически в UI
+                avatar: null 
             };
 
             localStorage.setItem('codequest_user', JSON.stringify(newUser));
@@ -152,7 +157,6 @@ function initAuthForms() {
         logBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
-            // Упрощенный вход для демо
             if(email) {
                 const mockUser = {
                     username: "Alex Coder",
@@ -194,16 +198,14 @@ function logout() {
 
 function initProfilePage(user) {
     const profileName = document.getElementById('profile-name');
-    if (!profileName || !user) return; // Не страница профиля или нет юзера
+    if (!profileName || !user) return; 
 
-    // Заполнение данных
     document.getElementById('profile-name').innerText = user.username;
     document.getElementById('profile-handle').innerText = user.handle;
     document.getElementById('profile-location').innerText = user.location || "Планета Земля";
     const avatarUrl = user.avatar || `https://ui-avatars.com/api/?background=2b8cee&color=fff&size=128&name=${user.username}`;
     document.getElementById('profile-avatar').style.backgroundImage = `url('${avatarUrl}')`;
 
-    // Редактирование
     const editBtn = document.getElementById('edit-profile-btn');
     const modal = document.getElementById('edit-modal');
     const saveBtn = document.getElementById('save-profile');
@@ -224,7 +226,7 @@ function initProfilePage(user) {
         user.location = document.getElementById('edit-location').value;
         
         localStorage.setItem('codequest_user', JSON.stringify(user));
-        location.reload(); // Перезагрузка для обновления
+        location.reload();
     });
 }
 
@@ -233,27 +235,39 @@ function initProfilePage(user) {
 function initCalendar() {
     const grid = document.getElementById('calendar-grid');
     if (!grid) return;
-
-    // Январь 2026: 1 число = Четверг (index 3, если пн=0)
-    // пн вт ср чт пт сб вс
-    // 0  1  2  3  4  5  6
     
     const startOffset = 3; // Четверг
     const daysInMonth = 31;
     let html = '';
 
+    // Пустые ячейки до начала месяца
     for (let i = 0; i < startOffset; i++) {
         html += `<div class="bg-[#111a22] p-2 min-h-[120px] border-r border-b border-[#233648] opacity-50"></div>`;
     }
 
+    // Дни месяца
     for (let day = 1; day <= daysInMonth; day++) {
         let events = '';
-        if (day === 5) events = `<div class="w-full bg-primary/20 border-l-2 border-primary rounded px-2 py-1 mt-1 cursor-pointer hover:bg-primary/30"><p class="text-xs text-white truncate">Codeforces Round</p></div>`;
-        if (day === 14) events = `<div class="w-full bg-purple-500/20 border-l-2 border-purple-500 rounded px-2 py-1 mt-1 cursor-pointer hover:bg-purple-500/30"><p class="text-xs text-white truncate">LeetCode Weekly</p></div>`;
+        
+        // Пример событий (данные могли бы приходить из API)
+        if (day === 5) {
+            events = `
+                <div onclick="openContestModal('Codeforces Round #920', 'Codeforces', '5 Января, 17:35', 'Средний (Div 2)', 'Рейтинговый раунд для второго дивизиона. 6 задач, 2 часа.', 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1000&auto=format&fit=crop'); event.stopPropagation();" 
+                     class="w-full bg-primary/20 border-l-2 border-primary rounded px-2 py-1 mt-1 cursor-pointer hover:bg-primary/30 transition-colors">
+                    <p class="text-xs text-white truncate font-medium">Codeforces Round</p>
+                </div>`;
+        }
+        if (day === 14) {
+            events = `
+                <div onclick="openContestModal('LeetCode Weekly 386', 'LeetCode', '14 Января, 08:00', 'Смешанный', '4 задачи: Easy, Medium, Medium, Hard. 1.5 часа.', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000&auto=format&fit=crop'); event.stopPropagation();" 
+                     class="w-full bg-purple-500/20 border-l-2 border-purple-500 rounded px-2 py-1 mt-1 cursor-pointer hover:bg-purple-500/30 transition-colors">
+                    <p class="text-xs text-white truncate font-medium">LeetCode Weekly</p>
+                </div>`;
+        }
 
         html += `
             <div class="bg-[#111a22] p-2 min-h-[120px] border-r border-b border-[#233648] relative group hover:bg-[#16212e] transition-colors">
-                <span class="text-slate-300 text-sm font-bold">${day}</span>
+                <span class="text-slate-300 text-sm font-bold group-hover:text-white">${day}</span>
                 <div class="flex flex-col gap-1 mt-1">${events}</div>
             </div>
         `;
@@ -261,7 +275,24 @@ function initCalendar() {
     grid.innerHTML = html;
 }
 
-/* --- CONTEST MODAL --- */
+/* --- ADD EVENT MODAL (CALENDAR & CONTESTS) --- */
+function openAddEventModal() {
+    const modal = document.getElementById('add-event-modal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeAddEventModal() {
+    const modal = document.getElementById('add-event-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function saveNewEvent() {
+    // В реальном приложении здесь был бы POST запрос
+    alert('Событие успешно добавлено!');
+    closeAddEventModal();
+}
+
+/* --- CONTEST MODAL & REGISTRATION --- */
 
 function openContestModal(title, platform, time, difficulty, description, imageUrl) {
     const modal = document.getElementById('contest-modal');
@@ -290,5 +321,18 @@ function closeContestModal() {
     if(modal) {
         modal.classList.add('hidden');
         document.body.style.overflow = '';
+    }
+}
+
+function registerForEvent() {
+    const user = JSON.parse(localStorage.getItem('codequest_user'));
+    
+    if (!user) {
+        if(confirm('Для регистрации на турнир необходимо войти в аккаунт. Перейти на страницу входа?')) {
+            window.location.href = 'registration.html';
+        }
+    } else {
+        alert('Вы успешно зарегистрированы! Подтверждение отправлено на ' + user.email);
+        closeContestModal();
     }
 }

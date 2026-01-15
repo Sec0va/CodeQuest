@@ -6,6 +6,12 @@
     <title>CodeQuest Главная страница</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Critical CSS to prevent white flash -->
+    <style>
+        html, body { background-color: #111a22; color: white; }
+    </style>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -53,7 +59,7 @@
 
     <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="flex flex-col gap-6 mb-12">
-            <h1 class="text-white text-4xl md:text-6xl font-black tracking-tight leading-tight">Добро пожаловать в <span class="text-primary">CodeQuest</span></h1>
+            <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white">Добро пожаловать в <span class="text-primary">CodeQuest</span></h1>
             <div class="max-w-3xl space-y-4">
                 <p class="text-text-secondary text-lg md:text-xl font-light leading-relaxed">
                     Единая экосистема для соревновательного программирования. Мы агрегируем контесты с ведущих мировых платформ, помогаем отслеживать прогресс и находить единомышленников.
@@ -74,7 +80,8 @@
         <!-- Filters and Content -->
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Sidebar -->
-            <aside class="w-full lg:w-72 shrink-0 flex flex-col gap-6">
+            <aside class="w-full lg:w-80 shrink-0 flex flex-col gap-6">
+                <!-- Filters Widget -->
                 <div class="flex flex-col gap-6 p-6 bg-surface-darker rounded-2xl border border-surface-border">
                     <div class="flex items-center gap-2 text-primary mb-2">
                         <span class="material-symbols-outlined">tune</span>
@@ -111,6 +118,50 @@
                         </label>
                     </div>
                 </div>
+
+                <!-- Leaderboard Widget -->
+                <div class="flex flex-col p-6 bg-surface-darker rounded-2xl border border-surface-border">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2 text-yellow-500">
+                            <span class="material-symbols-outlined">emoji_events</span>
+                            <h3 class="font-bold text-lg text-white">Топ Рейтинг</h3>
+                        </div>
+                        <span class="text-xs text-text-secondary cursor-pointer hover:text-white">Все</span>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4">
+                        <!-- User 1 -->
+                        <div class="flex items-center gap-3">
+                            <div class="font-bold text-yellow-500 w-4 text-center">1</div>
+                            <div class="size-8 rounded-full bg-slate-700 bg-[url('https://ui-avatars.com/api/?background=random&name=Tourist')] bg-cover"></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-bold text-white truncate">tourist</p>
+                                <p class="text-xs text-text-secondary">3850 pts</p>
+                            </div>
+                            <span class="material-symbols-outlined text-green-500 text-[16px]">trending_up</span>
+                        </div>
+                         <!-- User 2 -->
+                         <div class="flex items-center gap-3">
+                            <div class="font-bold text-slate-300 w-4 text-center">2</div>
+                            <div class="size-8 rounded-full bg-slate-700 bg-[url('https://ui-avatars.com/api/?background=random&name=Ben+Qi')] bg-cover"></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-bold text-white truncate">Benq</p>
+                                <p class="text-xs text-text-secondary">3620 pts</p>
+                            </div>
+                            <span class="material-symbols-outlined text-green-500 text-[16px]">trending_up</span>
+                        </div>
+                        <!-- User 3 -->
+                        <div class="flex items-center gap-3">
+                            <div class="font-bold text-amber-700 w-4 text-center">3</div>
+                            <div class="size-8 rounded-full bg-slate-700 bg-[url('https://ui-avatars.com/api/?background=random&name=Petr')] bg-cover"></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-bold text-white truncate">Petr</p>
+                                <p class="text-xs text-text-secondary">3450 pts</p>
+                            </div>
+                            <span class="material-symbols-outlined text-red-500 text-[16px]">trending_down</span>
+                        </div>
+                    </div>
+                </div>
             </aside>
             
             <div class="flex-1 flex flex-col gap-6">
@@ -132,9 +183,24 @@
                         </div>
                         <div class="flex flex-col p-5 gap-3 flex-1">
                             <h3 class="text-white text-lg font-bold group-hover:text-primary transition-colors">Codeforces Round #998</h3>
-                            <p class="text-text-secondary text-sm line-clamp-2">Классический раунд для второго дивизиона.</p>
+                            <p class="text-text-secondary text-sm line-clamp-2">Классический раунд для второго дивизиона. Подходит для тех, кто хочет поднять рейтинг.</p>
                             <div class="mt-auto pt-3 flex items-center justify-between border-t border-surface-border">
                                 <span class="text-text-secondary text-xs flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 2 часа</span>
+                                <span class="material-symbols-outlined text-text-secondary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="contests.html" class="group flex flex-col bg-surface-darker rounded-xl border border-surface-border overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer">
+                        <div class="h-32 w-full bg-gradient-to-r from-purple-900 to-[#111a22] relative">
+                             <div class="absolute top-4 left-4 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-1.5"><span class="material-symbols-outlined text-white">terminal</span></div>
+                             <div class="absolute bottom-4 right-4 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded">Завтра, 08:00</div>
+                        </div>
+                        <div class="flex flex-col p-5 gap-3 flex-1">
+                            <h3 class="text-white text-lg font-bold group-hover:text-purple-400 transition-colors">LeetCode Weekly 400</h3>
+                            <p class="text-text-secondary text-sm line-clamp-2">Юбилейный еженедельный контест. Ожидаются интересные задачи на графы.</p>
+                            <div class="mt-auto pt-3 flex items-center justify-between border-t border-surface-border">
+                                <span class="text-text-secondary text-xs flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 1.5 часа</span>
                                 <span class="material-symbols-outlined text-text-secondary group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </div>
                         </div>

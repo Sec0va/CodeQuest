@@ -6,6 +6,12 @@
     <title>CodeQuest Соревнования</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Critical CSS to prevent white flash -->
+    <style>
+        html, body { background-color: #111a22; color: white; }
+    </style>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -47,7 +53,14 @@
 
     <div class="flex-1 flex justify-center w-full px-4 md:px-10 py-6 md:py-10">
         <div class="flex flex-col max-w-[1200px] w-full gap-8">
-            <h1 class="text-white text-3xl md:text-5xl font-bold tracking-tight">Предстоящие соревнования</h1>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white">Предстоящие соревнования</h1>
+                <!-- Кнопка создания турнира -->
+                <button onclick="openAddEventModal()" class="flex h-12 px-6 items-center justify-center gap-2 rounded-xl bg-primary text-white text-base font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-900/20">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    <span>Создать турнир</span>
+                </button>
+            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 <!-- Card 1 -->
@@ -103,7 +116,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Info & Registration -->
     <div id="contest-modal" class="fixed inset-0 z-[100] hidden">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeContestModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
@@ -143,10 +156,58 @@
                 </div>
 
                 <div class="p-6 border-t border-surface-border flex gap-4 bg-[#16212e]">
-                    <button onclick="alert('Вы успешно зарегистрированы! Ссылка отправлена на почту.')" class="flex-1 h-12 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                    <button onclick="registerForEvent()" class="flex-1 h-12 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined">how_to_reg</span>
                         Зарегистрироваться
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Tournament Modal (New for Contests Page) -->
+    <div id="add-event-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeAddEventModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-[#111a22] border border-surface-border w-full max-w-md rounded-2xl shadow-2xl p-6 relative animate-[fadeIn_0.2s_ease-out]">
+                <h3 class="text-2xl font-bold text-white mb-6">Создать турнир</h3>
+                <div class="flex flex-col gap-4">
+                    <label class="flex flex-col gap-1">
+                        <span class="text-sm text-text-secondary">Название турнира</span>
+                        <input type="text" placeholder="Например: CodeQuest Cup #1" class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary">
+                    </label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex flex-col gap-1">
+                            <span class="text-sm text-text-secondary">Дата</span>
+                            <input type="date" class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary">
+                        </label>
+                        <label class="flex flex-col gap-1">
+                            <span class="text-sm text-text-secondary">Время</span>
+                            <input type="time" class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary">
+                        </label>
+                    </div>
+                    <label class="flex flex-col gap-1">
+                        <span class="text-sm text-text-secondary">Платформа</span>
+                        <select class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary">
+                            <option>Codeforces</option>
+                            <option>LeetCode</option>
+                            <option>AtCoder</option>
+                            <option>Своя платформа</option>
+                        </select>
+                    </label>
+                     <label class="flex flex-col gap-1">
+                        <span class="text-sm text-text-secondary">Сложность</span>
+                        <select class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary">
+                            <option>Для новичков (Div 4)</option>
+                            <option>Легкий (Div 3)</option>
+                            <option>Средний (Div 2)</option>
+                            <option>Сложный (Div 1)</option>
+                        </select>
+                    </label>
+                    <div class="flex gap-3 mt-4">
+                        <button onclick="saveNewEvent()" class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-lg shadow-lg shadow-primary/20">Создать</button>
+                        <button onclick="closeAddEventModal()" class="flex-1 bg-surface-dark hover:bg-surface-border text-white font-bold py-3 rounded-lg border border-surface-border">Отмена</button>
+                    </div>
                 </div>
             </div>
         </div>
