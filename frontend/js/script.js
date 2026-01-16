@@ -1,5 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Инициализация
+    await loadComponents();
+
     const currentUser = JSON.parse(localStorage.getItem('codequest_user'));
     
     updateAuthUI(currentUser);
@@ -8,7 +10,60 @@ document.addEventListener('DOMContentLoaded', () => {
     initProfilePage(currentUser);
     updateHomeCTA(currentUser);
     initNotifications();
+    
+    highlightActiveLink();
 });
+
+const IS_PAGES = window.location.pathname.includes('/pages/');
+const PATH_TO_PAGES = IS_PAGES ? '' : 'pages/';
+const PATH_TO_INDEX = IS_PAGES ? '../index.html' : 'index.html';
+const COMPONENTS_PATH = IS_PAGES ? 'components/' : 'pages/components/';
+
+async function loadComponents() {
+    const headerContainer = document.getElementById('app-header');
+    const footerContainer = document.getElementById('app-footer');
+
+    if (headerContainer) {
+        try {
+            const response = await fetch(COMPONENTS_PATH + 'header.html');
+            let content = await response.text();
+            content = content.replace(/{{PATH_TO_INDEX}}/g, PATH_TO_INDEX);
+            content = content.replace(/{{PATH_TO_PAGES}}/g, PATH_TO_PAGES);
+            headerContainer.innerHTML = content;
+        } catch (e) {
+            console.error('Error loading header:', e);
+        }
+    }
+
+    if (footerContainer) {
+        try {
+            const response = await fetch(COMPONENTS_PATH + 'footer.html');
+            const content = await response.text();
+            footerContainer.innerHTML = content;
+        } catch (e) {
+            console.error('Error loading footer:', e);
+        }
+    }
+}
+
+function highlightActiveLink() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('nav a');
+    
+    navLinks.forEach(link => {
+        // Simple check: if link href is contained in current path
+        const href = link.getAttribute('href');
+        // Handle root
+        if ((currentPath.endsWith('index.html') || currentPath.endsWith('/')) && href.includes('index.html')) {
+             link.classList.remove('text-text-secondary', 'font-medium');
+             link.classList.add('text-white', 'font-bold');
+        } else if (href !== 'index.html' && !href.endsWith('index.html') && currentPath.includes(href.replace(PATH_TO_PAGES, ''))) {
+             link.classList.remove('text-text-secondary', 'font-medium');
+             link.classList.add('text-white', 'font-bold');
+        }
+    });
+}
+
 
 /* --- AUTH & UI LOGIC --- */
 
@@ -31,7 +86,7 @@ function updateAuthUI(user) {
                 </div>
             </div>
             
-            <div class="relative cursor-pointer group" onclick="window.location.href='profile.html'">
+            <div class="relative cursor-pointer group" onclick="window.location.href='${PATH_TO_PAGES}profile.html'">
                 <div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary" style='background-image: url("${user.avatar || 'https://ui-avatars.com/api/?background=2b8cee&color=fff&name=' + user.username}");'></div>
             </div>
             
@@ -42,10 +97,10 @@ function updateAuthUI(user) {
     } else {
         // Гость: Войти
         authContainer.innerHTML = `
-            <a href="registration.html" class="hidden md:flex items-center justify-center rounded-lg h-9 px-4 bg-primary hover:bg-primary-dark text-white text-sm font-bold transition-all shadow-lg shadow-primary/20">
+            <a href="${PATH_TO_PAGES}registration.html" class="hidden md:flex items-center justify-center rounded-lg h-9 px-4 bg-primary hover:bg-primary-dark text-white text-sm font-bold transition-all shadow-lg shadow-primary/20">
                 <span>Войти</span>
             </a>
-            <button onclick="window.location.href='registration.html'" class="md:hidden text-white">
+            <button onclick="window.location.href='${PATH_TO_PAGES}registration.html'" class="md:hidden text-white">
                 <span class="material-symbols-outlined">login</span>
             </button>
         `;
@@ -85,7 +140,7 @@ function updateHomeCTA(user) {
             <h2 class="text-3xl lg:text-4xl font-black text-white relative z-10 max-w-2xl">Рады видеть вас снова, ${user.username}!</h2>
             <p class="text-white/90 text-lg max-w-xl relative z-10">Новые турниры уже ждут. Проверьте свой календарь и приступайте к задачам.</p>
             <div class="flex gap-4 relative z-10 mt-2">
-                <a href="contests.html" class="flex h-12 items-center justify-center rounded-xl px-8 bg-white text-primary text-base font-bold hover:bg-slate-100 transition-all shadow-lg">
+                <a href="${PATH_TO_PAGES}contests.html" class="flex h-12 items-center justify-center rounded-xl px-8 bg-white text-primary text-base font-bold hover:bg-slate-100 transition-all shadow-lg">
                     <span class="material-symbols-outlined mr-2">list_alt</span>
                     Каталог турниров
                 </a>
@@ -147,7 +202,7 @@ function initAuthForms() {
             };
 
             localStorage.setItem('codequest_user', JSON.stringify(newUser));
-            window.location.href = 'profile.html';
+            window.location.href = PATH_TO_PAGES + 'profile.html';
         });
     }
 
@@ -165,7 +220,7 @@ function initAuthForms() {
                     location: "Санкт-Петербург"
                 };
                 localStorage.setItem('codequest_user', JSON.stringify(mockUser));
-                window.location.href = 'profile.html';
+                window.location.href = PATH_TO_PAGES + 'profile.html';
             } else {
                 alert("Введите Email");
             }
@@ -191,7 +246,7 @@ function updateTabs(active) {
 
 function logout() {
     localStorage.removeItem('codequest_user');
-    window.location.href = 'home.html';
+    window.location.href = PATH_TO_INDEX;
 }
 
 /* --- PROFILE LOGIC --- */
@@ -329,7 +384,7 @@ function registerForEvent() {
     
     if (!user) {
         if(confirm('Для регистрации на турнир необходимо войти в аккаунт. Перейти на страницу входа?')) {
-            window.location.href = 'registration.html';
+            window.location.href = PATH_TO_PAGES + 'registration.html';
         }
     } else {
         alert('Вы успешно зарегистрированы! Подтверждение отправлено на ' + user.email);

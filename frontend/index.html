@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CodeQuest Главная страница</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+
+    <!-- Critical CSS to prevent white flash -->
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/tailwind.config.js"></script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-x-hidden selection:bg-primary selection:text-white text-white font-display">
+    <div id="app-header"></div>
+
+    <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col gap-6 mb-12">
+        <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white">
+          Добро пожаловать в <span class="text-primary">CodeQuest</span>
+        </h1>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-text-secondary text-lg md:text-xl font-light leading-relaxed">
+            Единая экосистема для соревновательного программирования. Мы агрегируем контесты с
+            ведущих мировых платформ, помогаем отслеживать прогресс и находить единомышленников.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 mt-4">
+          <a
+            href="pages/contests.html"
+            class="flex items-center justify-center gap-2 rounded-xl h-12 px-8 bg-primary hover:bg-primary-dark text-white text-base font-bold transition-all shadow-lg shadow-primary/25 w-full sm:w-auto">
+            <span class="material-symbols-outlined">rocket_launch</span>
+            <span>Перейти к соревнованиям</span>
+          </a>
+          <button
+            onclick="window.location.href='pages/info.html'"
+            class="flex items-center justify-center gap-2 rounded-xl h-12 px-8 bg-surface-dark hover:bg-surface-darker border border-surface-border hover:border-gray-500 text-white text-base font-bold transition-all w-full sm:w-auto">
+            <span class="material-symbols-outlined">info</span>
+            <span>Узнать больше</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters and Content -->
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-80 shrink-0 flex flex-col gap-6">
+          <!-- Filters Widget -->
+          <div
+            class="flex flex-col gap-6 p-6 bg-surface-darker rounded-2xl border border-surface-border">
+            <div class="flex items-center gap-2 text-primary mb-2">
+              <span class="material-symbols-outlined">tune</span>
+              <h3 class="font-bold text-lg">Фильтры</h3>
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <h4 class="text-xs font-bold text-text-secondary uppercase tracking-widest">
+                Платформа
+              </h4>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input
+                  checked=""
+                  class="form-checkbox rounded bg-background-dark border-gray-600 text-primary focus:ring-primary"
+                  type="checkbox" />
+                <span class="text-sm text-gray-300">Codeforces</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input
+                  checked=""
+                  class="form-checkbox rounded bg-background-dark border-gray-600 text-primary focus:ring-primary"
+                  type="checkbox" />
+                <span class="text-sm text-gray-300">LeetCode</span>
+              </label>
+            </div>
+
+            <div class="h-px bg-surface-border w-full"></div>
+
+            <div class="flex flex-col gap-3">
+              <h4 class="text-xs font-bold text-text-secondary uppercase tracking-widest">
+                Сложность
+              </h4>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input
+                  class="form-checkbox rounded bg-background-dark border-gray-600 text-primary focus:ring-primary"
+                  type="checkbox" />
+                <span class="text-sm text-green-400">Easy</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input
+                  checked=""
+                  class="form-checkbox rounded bg-background-dark border-gray-600 text-primary focus:ring-primary"
+                  type="checkbox" />
+                <span class="text-sm text-yellow-400">Medium</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input
+                  class="form-checkbox rounded bg-background-dark border-gray-600 text-primary focus:ring-primary"
+                  type="checkbox" />
+                <span class="text-sm text-red-400">Hard</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Leaderboard Widget -->
+          <div class="flex flex-col p-6 bg-surface-darker rounded-2xl border border-surface-border">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2 text-yellow-500">
+                <span class="material-symbols-outlined">emoji_events</span>
+                <h3 class="font-bold text-lg text-white">Топ Рейтинг</h3>
+              </div>
+              <span class="text-xs text-text-secondary cursor-pointer hover:text-white">Все</span>
+            </div>
+
+            <div class="flex flex-col gap-4">
+              <!-- User 1 -->
+              <div class="flex items-center gap-3">
+                <div class="font-bold text-yellow-500 w-4 text-center">1</div>
+                <div
+                  class="size-8 rounded-full bg-slate-700 bg-[url('https://ui-avatars.com/api/?background=random&name=Tourist')] bg-cover"></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-white truncate">tourist</p>
+                  <p class="text-xs text-text-secondary">3850 pts</p>
+                </div>
+                <span class="material-symbols-outlined text-green-500 text-[16px]"
+                  >trending_up</span
+                >
+              </div>
+              <!-- User 2 -->
+              <div class="flex items-center gap-3">
+                <div class="font-bold text-slate-300 w-4 text-center">2</div>
+                <div
+                  class="size-8 rounded-full bg-slate-700 bg-[url('https://ui-avatars.com/api/?background=random&name=Ben+Qi')] bg-cover"></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-white truncate">Benq</p>
+                  <p class="text-xs text-text-secondary">3620 pts</p>
+                </div>
+                <span class="material-symbols-outlined text-green-500 text-[16px]"
+                  >trending_up</span
+                >
+              </div>
+              <!-- User 3 -->
+              <div class="flex items-center gap-3">
+                <div class="font-bold text-amber-700 w-4 text-center">3</div>
+                <div
+                  class="size-8 rounded-full bg-slate-700 bg-[url('https://ui-avatars.com/api/?background=random&name=Petr')] bg-cover"></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-white truncate">Petr</p>
+                  <p class="text-xs text-text-secondary">3450 pts</p>
+                </div>
+                <span class="material-symbols-outlined text-red-500 text-[16px]"
+                  >trending_down</span
+                >
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="flex-1 flex flex-col gap-6">
+          <!-- Search -->
+          <div class="relative group">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-text-secondary group-focus-within:text-primary transition-colors">
+              <span class="material-symbols-outlined">search</span>
+            </div>
+            <input
+              class="block w-full p-4 pl-12 text-base text-white border border-surface-border rounded-xl bg-surface-darker placeholder-text-secondary focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-xl"
+              placeholder="Поиск по названию..."
+              type="text" />
+          </div>
+
+          <!-- Featured Cards -->
+          <h3 class="text-2xl font-bold text-white">Популярное сегодня</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <a
+              href="pages/contests.html"
+              class="group flex flex-col bg-surface-darker rounded-xl border border-surface-border overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer">
+              <div class="h-32 w-full bg-gradient-to-r from-blue-900 to-[#111a22] relative">
+                <div
+                  class="absolute top-4 left-4 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-1.5">
+                  <span class="material-symbols-outlined text-white">code</span>
+                </div>
+                <div
+                  class="absolute bottom-4 right-4 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                  Сегодня, 17:00
+                </div>
+              </div>
+              <div class="flex flex-col p-5 gap-3 flex-1">
+                <h3 class="text-white text-lg font-bold group-hover:text-primary transition-colors">
+                  Codeforces Round #998
+                </h3>
+                <p class="text-text-secondary text-sm line-clamp-2">
+                  Классический раунд для второго дивизиона. Подходит для тех, кто хочет поднять
+                  рейтинг.
+                </p>
+                <div
+                  class="mt-auto pt-3 flex items-center justify-between border-t border-surface-border">
+                  <span class="text-text-secondary text-xs flex items-center gap-1"
+                    ><span class="material-symbols-outlined text-[14px]">schedule</span> 2
+                    часа</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-text-secondary group-hover:translate-x-1 transition-transform"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="pages/contests.html"
+              class="group flex flex-col bg-surface-darker rounded-xl border border-surface-border overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer">
+              <div class="h-32 w-full bg-gradient-to-r from-purple-900 to-[#111a22] relative">
+                <div
+                  class="absolute top-4 left-4 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-1.5">
+                  <span class="material-symbols-outlined text-white">terminal</span>
+                </div>
+                <div
+                  class="absolute bottom-4 right-4 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded">
+                  Завтра, 08:00
+                </div>
+              </div>
+              <div class="flex flex-col p-5 gap-3 flex-1">
+                <h3
+                  class="text-white text-lg font-bold group-hover:text-purple-400 transition-colors">
+                  LeetCode Weekly 400
+                </h3>
+                <p class="text-text-secondary text-sm line-clamp-2">
+                  Юбилейный еженедельный контест. Ожидаются интересные задачи на графы.
+                </p>
+                <div
+                  class="mt-auto pt-3 flex items-center justify-between border-t border-surface-border">
+                  <span class="text-text-secondary text-xs flex items-center gap-1"
+                    ><span class="material-symbols-outlined text-[14px]">schedule</span> 1.5
+                    часа</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-text-secondary group-hover:translate-x-1 transition-transform"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Banner -->
+      <section
+        id="home-cta-container"
+        class="mt-16 w-full rounded-3xl bg-primary relative overflow-hidden flex flex-col items-center justify-center text-center p-10 lg:p-16 gap-6 shadow-2xl shadow-primary/20">
+        <div
+          class="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div
+          class="absolute bottom-0 right-0 w-64 h-64 bg-black/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+        <h2 class="text-3xl lg:text-4xl font-black text-white relative z-10 max-w-2xl">
+          Готовы начать свой путь?
+        </h2>
+        <p class="text-white/90 text-lg max-w-xl relative z-10">
+          Регистрируйтесь сейчас, чтобы получить доступ к персональному календарю.
+        </p>
+        <div class="flex gap-4 relative z-10 mt-2">
+          <a
+            href="pages/registration.html"
+            class="flex h-12 items-center justify-center rounded-xl px-8 bg-white text-primary text-base font-bold hover:bg-slate-100 transition-all shadow-lg">
+            Создать аккаунт
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <div id="app-footer"></div>
+    <script src="js/script.js"></script>
+  </body>
+</html>

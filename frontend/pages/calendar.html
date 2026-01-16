@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CodeQuest Календарь</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+
+    <!-- Critical CSS to prevent white flash -->
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.config.js"></script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-white overflow-x-hidden">
+    <div id="app-header"></div>
+
+    <div class="flex flex-1 w-full max-w-[1440px] mx-auto p-4 md:p-8 flex-col gap-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white">
+          Январь 2026
+        </h1>
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <button
+            onclick="openAddEventModal()"
+            class="flex h-12 px-6 items-center justify-center gap-2 rounded-xl bg-primary text-white text-base font-bold hover:bg-blue-600 transition-colors ml-2 shadow-lg shadow-blue-900/20">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            <span>Добавить событие</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div
+        class="flex flex-col bg-[#111a22] rounded-xl border border-surface-border overflow-hidden shadow-2xl">
+        <!-- Full names for days -->
+        <div class="grid grid-cols-7 border-b border-surface-border bg-surface-dark">
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Понедельник
+          </div>
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Вторник
+          </div>
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Среда
+          </div>
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Четверг
+          </div>
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Пятница
+          </div>
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Суббота
+          </div>
+          <div class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+            Воскресенье
+          </div>
+        </div>
+        <div
+          id="calendar-grid"
+          class="grid grid-cols-7 auto-rows-[minmax(120px,1fr)] gap-px bg-surface-border">
+          <!-- JS generates cells here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Contest Details Modal (Used for clicking on events) -->
+    <div id="contest-modal" class="fixed inset-0 z-[100] hidden">
+      <div
+        class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onclick="closeContestModal()"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div
+          class="bg-[#111a22] border border-surface-border w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col relative animate-[fadeIn_0.2s_ease-out] overflow-hidden">
+          <div class="h-48 w-full relative">
+            <img
+              id="modal-image"
+              src=""
+              alt="Contest Cover"
+              class="w-full h-full object-cover opacity-60" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#111a22] to-transparent"></div>
+            <button
+              onclick="closeContestModal()"
+              class="absolute top-4 right-4 bg-black/50 hover:bg-black/80 rounded-full p-2 text-white transition-colors backdrop-blur-md">
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+            <div class="absolute bottom-4 left-8">
+              <span
+                id="modal-platform"
+                class="text-primary font-bold tracking-widest text-xs uppercase mb-1 block"
+                >Платформа</span
+              >
+              <h2
+                id="modal-title"
+                class="text-3xl font-bold text-white shadow-black drop-shadow-lg">
+                Название
+              </h2>
+            </div>
+          </div>
+          <div class="p-8 pb-4 bg-[#111a22]">
+            <div class="flex flex-wrap gap-4 mb-6">
+              <div
+                class="flex items-center gap-2 text-text-secondary bg-surface-dark px-3 py-1.5 rounded-lg border border-surface-border">
+                <span class="material-symbols-outlined text-[18px]">schedule</span
+                ><span id="modal-time" class="text-sm font-medium">Время</span>
+              </div>
+              <div
+                class="flex items-center gap-2 text-text-secondary bg-surface-dark px-3 py-1.5 rounded-lg border border-surface-border">
+                <span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span
+                ><span id="modal-diff" class="text-sm font-medium">Сложность</span>
+              </div>
+            </div>
+            <div class="prose prose-invert max-w-none">
+              <h4 class="text-white font-bold mb-2 text-lg">О соревновании</h4>
+              <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed"></p>
+            </div>
+          </div>
+          <div class="p-6 border-t border-surface-border flex gap-4 bg-[#16212e]">
+            <button
+              onclick="registerForEvent()"
+              class="flex-1 h-12 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined">how_to_reg</span>Зарегистрироваться
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div id="add-event-modal" class="fixed inset-0 z-[100] hidden">
+      <div
+        class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onclick="closeAddEventModal()"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div
+          class="bg-[#111a22] border border-surface-border w-full max-w-md rounded-2xl shadow-2xl p-6 relative animate-[fadeIn_0.2s_ease-out]">
+          <h3 class="text-2xl font-bold text-white mb-6">Добавить событие</h3>
+          <div class="flex flex-col gap-4">
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-text-secondary">Название</span>
+              <input
+                type="text"
+                placeholder="Моя тренировка"
+                class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary" />
+            </label>
+            <div class="grid grid-cols-2 gap-4">
+              <label class="flex flex-col gap-1">
+                <span class="text-sm text-text-secondary">Дата</span>
+                <input
+                  type="date"
+                  class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary" />
+              </label>
+              <label class="flex flex-col gap-1">
+                <span class="text-sm text-text-secondary">Время</span>
+                <input
+                  type="time"
+                  class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary" />
+              </label>
+            </div>
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-text-secondary">Тип</span>
+              <select
+                class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary">
+                <option>Личное</option>
+                <option>Командное</option>
+                <option>Университет</option>
+              </select>
+            </label>
+            <div class="flex gap-3 mt-4">
+              <button
+                onclick="saveNewEvent()"
+                class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-lg shadow-lg shadow-primary/20">
+                Сохранить
+              </button>
+              <button
+                onclick="closeAddEventModal()"
+                class="flex-1 bg-surface-dark hover:bg-surface-border text-white font-bold py-3 rounded-lg border border-surface-border">
+                Отмена
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>
