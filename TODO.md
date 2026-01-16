@@ -23,8 +23,14 @@
 
 ## 2. Backend Development
 
-- [ ] **Разработать Backend с соблюдением принципов SOLID**.
-  - Рекомендуемый стек: Node.js (NestJS) или Python (FastAPI/Django) / Go.
+- [x] **Настройка окружения и архитектуры (Express + TypeScript + SOLID)**.
+  - [x] Инициализация проекта, настройка TypeScript (strict mode).
+  - [x] Реализация базовой структуры: Controllers, Services, Repositories, Models.
+  - [x] Реализация примера модуля "Contest" (In-memory Repository).
+- [ ] **Расширение функционала Backend**.
+  - [ ] Подключение базы данных (PostgreSQL/MongoDB).
+  - [ ] Реализация Persistence Repository (замена In-memory).
+  - [ ] Добавление авторизации/аутентификации. Do
   - **S**ingle Responsibility: Разделение на слои (Controllers, Services, Repositories).
   - **O**pen/Closed: Использование стратегий и плагинов для расширения функционала.
   - **L**iskov Substitution: Корректное использование наследования.
