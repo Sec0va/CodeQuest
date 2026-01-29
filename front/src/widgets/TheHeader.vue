@@ -10,7 +10,7 @@ const i18n = useI18nStore();
 
 const hasAdminAccess = computed(() => {
   const roles = userStore.user?.roles ?? [];
-  return roles.includes('admin') || roles.includes('organizer');
+  return roles.includes('admin');
 });
 
 // РЎРѕСЃС‚РѕСЏРЅРёРµ РґР»СЏ РјРѕР±РёР»СЊРЅРѕРіРѕ РјРµРЅСЋ Рё СѓРІРµРґРѕРјР»РµРЅРёР№

@@ -10,7 +10,7 @@ const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:3001';
 
 const hasAccess = computed(() => {
   const roles = userStore.user?.roles ?? [];
-  return roles.includes('admin') || roles.includes('organizer');
+  return roles.includes('admin');
 });
 
 const assignForm = ref({

@@ -9,7 +9,6 @@ const router = useRouter();
 const userStore = useUserStore();
 const i18n = useI18nStore();
 
-const isAddModalOpen = ref(false);
 const isContestModalOpen = ref(false);
 
 const selectedContestId = ref<string | null>(null);
@@ -122,9 +121,18 @@ const selectedContest = computed(() => {
   return item ? mapContest(item) : null;
 });
 
+const canCreateContest = computed(() => {
+  const roles = userStore.user?.roles ?? [];
+  return roles.includes('admin') || roles.includes('organizer');
+});
+
 const openContestModal = (id: string) => {
   selectedContestId.value = id;
   isContestModalOpen.value = true;
+};
+
+const goToCreatePage = () => {
+  router.push('/contests/create');
 };
 
 const registerForEvent = () => {
@@ -136,10 +144,6 @@ const registerForEvent = () => {
   }
   alert(i18n.t('contests.registerSuccess'));
   isContestModalOpen.value = false;
-};
-
-const saveNewEvent = () => {
-  isAddModalOpen.value = false;
 };
 
 const resetFilters = () => {
@@ -154,7 +158,7 @@ const resetFilters = () => {
     <div class="flex flex-col max-w-[1200px] w-full gap-8">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white">{{ i18n.t('contests.title') }}</h1>
-        <button @click="isAddModalOpen = true" class="flex h-12 px-6 items-center justify-center gap-2 rounded-xl bg-primary text-white text-base font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-900/20">
+        <button v-if="canCreateContest" @click="goToCreatePage" class="flex h-12 px-6 items-center justify-center gap-2 rounded-xl bg-primary text-white text-base font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-900/20">
           <span class="material-symbols-outlined text-[20px]">add</span>
           <span>{{ i18n.t('contests.create') }}</span>
         </button>
@@ -249,24 +253,6 @@ const resetFilters = () => {
           <button @click="registerForEvent" class="flex-1 h-12 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
             <span class="material-symbols-outlined">how_to_reg</span>{{ i18n.t('contests.register') }}
           </button>
-        </div>
-      </div>
-    </BaseModal>
-
-    <!-- Add Tournament Modal -->
-    <BaseModal :is-open="isAddModalOpen" @close="isAddModalOpen = false" class="max-w-md p-6">
-      <h3 class="text-2xl font-bold text-white mb-6">{{ i18n.t('contests.addModalTitle') }}</h3>
-      <div class="flex flex-col gap-4">
-        <label class="flex flex-col gap-1">
-          <input type="text" :placeholder="i18n.t('contests.addNamePlaceholder')" class="rounded-lg bg-surface-dark border-surface-border text-white focus:ring-primary focus:border-primary" />
-        </label>
-        <div class="grid grid-cols-2 gap-4">
-          <label class="flex flex-col gap-1"><span class="text-sm text-text-secondary">{{ i18n.t('contests.addDate') }}</span><input type="date" class="rounded-lg bg-surface-dark border-surface-border text-white" /></label>
-          <label class="flex flex-col gap-1"><span class="text-sm text-text-secondary">{{ i18n.t('contests.addTime') }}</span><input type="time" class="rounded-lg bg-surface-dark border-surface-border text-white" /></label>
-        </div>
-        <div class="flex gap-3 mt-4">
-          <button @click="saveNewEvent" class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-lg">{{ i18n.t('contests.addCreate') }}</button>
-          <button @click="isAddModalOpen = false" class="flex-1 bg-surface-dark hover:bg-surface-border text-white font-bold py-3 rounded-lg border border-surface-border">{{ i18n.t('contests.addCancel') }}</button>
         </div>
       </div>
     </BaseModal>

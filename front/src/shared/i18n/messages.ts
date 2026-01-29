@@ -1,4 +1,4 @@
-export const messages = {
+﻿export const messages = {
   ru: {
     header: {
       nav: {
@@ -164,12 +164,16 @@ export const messages = {
     contests: {
       title: 'Предстоящие соревнования',
       create: 'Создать турнир',
+      createNote: 'Только организаторы и администраторы могут публиковать события.',
+      createRequired: 'Заполните название, дату и время.',
+      createSuccess: 'Событие создано.',
       filtersTitle: 'Фильтры',
       searchPlaceholder: 'Поиск по названию',
       platformAll: 'Все платформы',
       difficultyAll: 'Все уровни',
       reset: 'Сбросить',
       addModalTitle: 'Создать турнир',
+      addNameLabel: 'Название',
       addNamePlaceholder: 'Например: CodeQuest Cup #1',
       addDate: 'Дата',
       addTime: 'Время',
@@ -283,7 +287,7 @@ export const messages = {
       loginTitle: 'Требуется вход',
       loginText: 'Войдите в аккаунт, чтобы открыть админ‑панель.',
       accessDeniedTitle: 'Нет доступа',
-      accessDeniedText: 'Нужна роль admin или organizer.',
+      accessDeniedText: 'Нужна роль admin.',
       assignTitle: 'Выдать роль',
       assignIdentifier: 'Email или ник',
       assignPlaceholder: 'user@example.com или nickname',
@@ -514,12 +518,16 @@ export const messages = {
     contests: {
       title: 'Upcoming contests',
       create: 'Create contest',
+      createNote: 'Only organizers and admins can publish events.',
+      createRequired: 'Please fill in title, date, and time.',
+      createSuccess: 'Contest created.',
       filtersTitle: 'Filters',
       searchPlaceholder: 'Search by title',
       platformAll: 'All platforms',
       difficultyAll: 'All levels',
       reset: 'Reset',
       addModalTitle: 'Create contest',
+      addNameLabel: 'Title',
       addNamePlaceholder: 'Example: CodeQuest Cup #1',
       addDate: 'Date',
       addTime: 'Time',
@@ -633,7 +641,7 @@ export const messages = {
       loginTitle: 'Sign in required',
       loginText: 'Please sign in to access the admin panel.',
       accessDeniedTitle: 'Access denied',
-      accessDeniedText: 'Admin or organizer role required.',
+      accessDeniedText: 'Admin role required.',
       assignTitle: 'Assign role',
       assignIdentifier: 'Email or username',
       assignPlaceholder: 'user@example.com or nickname',
