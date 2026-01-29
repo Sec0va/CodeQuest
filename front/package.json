@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "node server/index.js",
+    "server": "node --env-file backend/url.env backend/server/index.js",
     "dev:full": "run-p dev server",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -18,7 +18,10 @@
     "better-sqlite3": "^12.6.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "pg": "^8.13.0",
     "pinia": "^3.0.4",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.25",
     "vue": "^3.5.26",
     "vue-i18n": "^11.2.8",
     "vue-router": "^4.6.4"
