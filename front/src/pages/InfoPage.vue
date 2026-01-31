@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useUserStore } from '@/stores/user';
+import { useI18nStore } from '@/stores/i18n';
 
 const userStore = useUserStore();
 const i18n = useI18nStore();

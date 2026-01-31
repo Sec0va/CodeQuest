@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useUserStore } from '@/stores/user';
+import { useI18nStore } from '@/stores/i18n';
 import BaseModal from '@/shared/ui/BaseModal.vue';
 
 const props = defineProps<{ isOpen: boolean }>();
@@ -9,7 +9,7 @@ const emit = defineEmits(['close']);
 const userStore = useUserStore();
 const i18n = useI18nStore();
 
-const form = ref({ username: '', handle: '', location: '' });
+const form = ref({ name: '', handle: '', location: '' });
 
 watch(() => props.isOpen, (newVal) => {
   if (newVal && userStore.user) {
@@ -29,7 +29,7 @@ const save = () => {
     <div class="flex flex-col gap-4">
       <label class="flex flex-col gap-1">
         <span class="text-sm text-text-secondary">{{ i18n.t('editProfile.username') }}</span>
-        <input v-model="form.username" type="text" class="rounded-lg bg-surface-dark border-surface-highlight text-white focus:ring-primary focus:border-primary" />
+        <input v-model="form.name" type="text" class="rounded-lg bg-surface-dark border-surface-highlight text-white focus:ring-primary focus:border-primary" />
       </label>
       <label class="flex flex-col gap-1">
         <span class="text-sm text-text-secondary">{{ i18n.t('editProfile.handle') }}</span>

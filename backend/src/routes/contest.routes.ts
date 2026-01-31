@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ContestController } from '../controllers/ContestController';
 import { ContestService } from '../services/ContestService';
 import { ContestRepository } from '../repositories/ContestRepository';
+import { authenticateToken } from '../middleware/authMiddleware';
 
 const router = Router();
 
@@ -13,6 +14,6 @@ const contestController = new ContestController(contestService);
 // Define Routes
 router.get('/', contestController.getAllContests);
 router.get('/:id', contestController.getContestById);
-router.post('/', contestController.createContest);
+router.post('/', authenticateToken, contestController.createContest);
 
 export default router;

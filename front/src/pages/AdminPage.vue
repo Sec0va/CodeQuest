@@ -1,16 +1,16 @@
-﻿<script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
-import { RouterLink } from 'vue-router';
+﻿
+<script setup lang="ts">
+import {computed, ref} from 'vue';
+import {useUserStore} from '@/stores/user';
+import {useI18nStore} from '@/stores/i18n';
+import {RouterLink} from 'vue-router';
 
 const userStore = useUserStore();
 const i18n = useI18nStore();
 const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:3001';
 
 const hasAccess = computed(() => {
-  const roles = userStore.user?.roles ?? [];
-  return roles.includes('admin');
+  return userStore.user?.role === 'admin';
 });
 
 const assignForm = ref({
@@ -36,7 +36,7 @@ const submitAssign = async () => {
     localStorage.setItem('codequest_admin_key', assignForm.value.adminKey);
     const response = await fetch(`${apiBase}/api/admin/assign-role`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(assignForm.value)
     });
     const data = await response.json().catch(() => ({}));
@@ -54,15 +54,18 @@ const submitAssign = async () => {
 
 <template>
   <main class="flex-1 w-full px-4 sm:px-6 lg:px-8 py-8 flex justify-center">
-    <div v-if="!userStore.user" class="w-full max-w-[800px] bg-surface-dark border border-surface-border rounded-2xl p-8 text-center">
+    <div v-if="!userStore.user"
+         class="w-full max-w-[800px] bg-surface-dark border border-surface-border rounded-2xl p-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">{{ i18n.t('admin.loginTitle') }}</h1>
       <p class="text-text-secondary mb-6">{{ i18n.t('admin.loginText') }}</p>
-      <RouterLink to="/auth" class="inline-flex h-11 items-center justify-center rounded-xl px-6 bg-primary hover:bg-blue-600 text-white text-sm font-bold">
+      <RouterLink to="/auth"
+                  class="inline-flex h-11 items-center justify-center rounded-xl px-6 bg-primary hover:bg-blue-600 text-white text-sm font-bold">
         {{ i18n.t('header.login') }}
       </RouterLink>
     </div>
 
-    <div v-else-if="!hasAccess" class="w-full max-w-[800px] bg-surface-dark border border-surface-border rounded-2xl p-8 text-center">
+    <div v-else-if="!hasAccess"
+         class="w-full max-w-[800px] bg-surface-dark border border-surface-border rounded-2xl p-8 text-center">
       <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">{{ i18n.t('admin.accessDeniedTitle') }}</h1>
       <p class="text-text-secondary">{{ i18n.t('admin.accessDeniedText') }}</p>
     </div>
@@ -104,16 +107,19 @@ const submitAssign = async () => {
           <h2 class="text-xl font-bold text-white mb-4">{{ i18n.t('admin.assignTitle') }}</h2>
           <form class="grid grid-cols-1 md:grid-cols-3 gap-4" @submit.prevent="submitAssign">
             <label class="flex flex-col gap-2 md:col-span-2">
-              <span class="text-xs uppercase tracking-wide text-text-secondary">{{ i18n.t('admin.assignIdentifier') }}</span>
+              <span class="text-xs uppercase tracking-wide text-text-secondary">{{
+                  i18n.t('admin.assignIdentifier')
+                }}</span>
               <input
-                v-model="assignForm.identifier"
-                class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm focus:ring-primary focus:border-primary"
-                :placeholder="i18n.t('admin.assignPlaceholder')"
+                  v-model="assignForm.identifier"
+                  class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm focus:ring-primary focus:border-primary"
+                  :placeholder="i18n.t('admin.assignPlaceholder')"
               />
             </label>
             <label class="flex flex-col gap-2">
               <span class="text-xs uppercase tracking-wide text-text-secondary">{{ i18n.t('admin.assignRole') }}</span>
-              <select v-model="assignForm.role" class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm">
+              <select v-model="assignForm.role"
+                      class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm">
                 <option value="admin">{{ i18n.t('admin.roles.admin') }}</option>
                 <option value="organizer">{{ i18n.t('admin.roles.organizer') }}</option>
                 <option value="user">{{ i18n.t('admin.roles.user') }}</option>
@@ -122,14 +128,15 @@ const submitAssign = async () => {
             <label class="flex flex-col gap-2 md:col-span-2">
               <span class="text-xs uppercase tracking-wide text-text-secondary">{{ i18n.t('admin.assignKey') }}</span>
               <input
-                v-model="assignForm.adminKey"
-                class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm focus:ring-primary focus:border-primary"
-                type="password"
-                placeholder="dev-admin-key"
+                  v-model="assignForm.adminKey"
+                  class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm focus:ring-primary focus:border-primary"
+                  type="password"
+                  placeholder="dev-admin-key"
               />
             </label>
             <div class="flex items-end">
-              <button :disabled="isAssigning" class="h-11 w-full rounded-lg bg-primary text-white font-bold hover:bg-blue-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
+              <button :disabled="isAssigning"
+                      class="h-11 w-full rounded-lg bg-primary text-white font-bold hover:bg-blue-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
                 {{ i18n.t('admin.assignSubmit') }}
               </button>
             </div>

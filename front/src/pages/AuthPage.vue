@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import AuthForm from '@/features/auth/ui/AuthForm.vue';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useI18nStore } from '@/stores/i18n';
 
 const activeTab = ref<'login' | 'register'>('login');
 const i18n = useI18nStore();

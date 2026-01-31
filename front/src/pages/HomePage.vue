@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useUserStore } from '@/stores/user';
+import { useI18nStore } from '@/stores/i18n';
 import { RouterLink } from 'vue-router';
 
 const userStore = useUserStore();
@@ -25,7 +25,7 @@ const topPlayers = [
           <div class="flex flex-col gap-6 flex-1 text-center lg:text-left z-10">
             <template v-if="userStore.user">
               <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white">
-                {{ i18n.t('home.hero.authTitlePrefix') }} <span class="text-primary">{{ userStore.user.username }}</span>{{ i18n.t('home.hero.authTitleSuffix') }}
+                {{ i18n.t('home.hero.authTitlePrefix') }} <span class="text-primary">{{ userStore.user.name }}</span>{{ i18n.t('home.hero.authTitleSuffix') }}
               </h1>
               <p class="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
                 {{ i18n.t('home.hero.ratingLabel') }} <span class="text-white font-bold">1854</span>.

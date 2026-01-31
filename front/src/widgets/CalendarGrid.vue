@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import {computed} from 'vue';
+import {useI18nStore} from '@/stores/i18n';
 
 const emit = defineEmits(['openEvent']);
 const i18n = useI18nStore();
@@ -96,7 +96,7 @@ const events = computed(() => [
 const eventsByDay = computed(() => {
   return events.value.reduce<Record<number, typeof events.value>>((acc, event) => {
     if (!acc[event.day]) acc[event.day] = [];
-    acc[event.day].push(event);
+    acc[event.day]!.push(event);
     return acc;
   }, {});
 });
@@ -109,21 +109,24 @@ const getEventsForDay = (day: number) => {
 <template>
   <div class="flex flex-col bg-[#111a22] rounded-xl border border-surface-border overflow-hidden shadow-2xl">
     <div class="grid grid-cols-7 border-b border-surface-border bg-surface-dark">
-      <div v-for="day in days" :key="day" class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
+      <div v-for="day in days" :key="day"
+           class="py-3 text-center text-xs sm:text-sm font-bold text-slate-300 uppercase">
         {{ day }}
       </div>
     </div>
-    
+
     <div class="grid grid-cols-7 auto-rows-[minmax(120px,1fr)] gap-px bg-surface-border">
-      <div v-for="i in startOffset" :key="'empty-'+i" class="bg-[#111a22] p-2 min-h-[120px] border-r border-b border-[#233648] opacity-50"></div>
-      
-      <div v-for="day in daysInMonth" :key="day" class="bg-[#111a22] p-2 min-h-[120px] border-r border-b border-[#233648] relative group hover:bg-[#16212e] transition-colors">
+      <div v-for="i in startOffset" :key="'empty-'+i"
+           class="bg-[#111a22] p-2 min-h-[120px] border-r border-b border-[#233648] opacity-50"></div>
+
+      <div v-for="day in daysInMonth" :key="day"
+           class="bg-[#111a22] p-2 min-h-[120px] border-r border-b border-[#233648] relative group hover:bg-[#16212e] transition-colors">
         <span class="text-slate-300 text-sm font-bold group-hover:text-white">{{ day }}</span>
         <div
-          v-for="event in getEventsForDay(day)"
-          :key="`${day}-${event.title}`"
-          @click.stop="emit('openEvent', event)"
-          class="w-full bg-primary/20 border-l-2 border-primary rounded px-2 py-1 mt-1 cursor-pointer hover:bg-primary/30 transition-colors"
+            v-for="event in getEventsForDay(day)"
+            :key="`${day}-${event.title}`"
+            @click.stop="emit('openEvent', event)"
+            class="w-full bg-primary/20 border-l-2 border-primary rounded px-2 py-1 mt-1 cursor-pointer hover:bg-primary/30 transition-colors"
         >
           <p class="text-xs text-white truncate font-medium">{{ event.platform }}</p>
         </div>

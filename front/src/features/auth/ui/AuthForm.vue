@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useUserStore } from '@/stores/user';
+import { useI18nStore } from '@/stores/i18n';
 
 const props = defineProps<{ 
   mode: 'login' | 'register' 
@@ -13,7 +13,7 @@ const router = useRouter();
 const i18n = useI18nStore();
 
 const formData = ref({
-  username: '',
+  name: '',
   email: '',
   identifier: '',
   password: ''
@@ -38,13 +38,13 @@ const handleSubmit = async () => {
     return;
   }
 
-  if (!formData.value.username || !formData.value.email || !formData.value.password) {
+  if (!formData.value.name || !formData.value.email || !formData.value.password) {
     return alert(i18n.t('authForm.allFieldsRequired'));
   }
   try {
     isLoading.value = true;
     await userStore.register({
-      username: formData.value.username,
+      name: formData.value.name,
       email: formData.value.email,
       password: formData.value.password,
       location: i18n.t('authForm.locationDefault'),
@@ -66,8 +66,8 @@ const handleSubmit = async () => {
       <div class="relative flex items-center">
         <span class="material-symbols-outlined absolute left-4 text-slate-400 text-[20px]">person</span>
         <input 
-          v-model="formData.username" 
-          class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:ring-primary focus:border-primary" 
+          v-model="formData.name"
+          class="w-full h-12 rounded-lg bg-slate-50 dark:bg-[#111a22] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white pl-11 pr-4 focus:ring-primary focus:border-primary"
           placeholder="ivan_coder" 
           type="text" 
         />

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useUserStore } from '@/stores/user';
+import { useI18nStore } from '@/stores/i18n';
 import BaseModal from '@/shared/ui/BaseModal.vue';
 
 const router = useRouter();
@@ -122,8 +122,7 @@ const selectedContest = computed(() => {
 });
 
 const canCreateContest = computed(() => {
-  const roles = userStore.user?.roles ?? [];
-  return roles.includes('admin') || roles.includes('organizer');
+  return userStore.user?.role === 'admin' || userStore.user?.role === 'organizer';
 });
 
 const openContestModal = (id: string) => {

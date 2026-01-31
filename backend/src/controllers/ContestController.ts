@@ -15,7 +15,7 @@ export class ContestController {
 
     getContestById = async (req: Request, res: Response): Promise<void> => {
         try {
-            const contest = await this.contestService.getContestById(req.params.id);
+            const contest = await this.contestService.getContestById(req.params.id as string);
             if (!contest) {
                 res.status(404).json({ message: 'Contest not found' });
                 return;

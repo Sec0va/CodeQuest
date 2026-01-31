@@ -19,7 +19,7 @@ const getMessage = (locale: Locale, key: string): unknown => {
 const applyVars = (template: string, vars?: Record<string, string | number>) => {
   if (!vars) return template;
   return Object.entries(vars).reduce((acc, [key, value]) => {
-    return acc.replaceAll(`{${key}}`, String(value));
+    return acc.split(`{${key}}`).join(String(value));
   }, template);
 };
 

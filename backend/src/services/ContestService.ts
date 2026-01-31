@@ -1,9 +1,10 @@
-import { IContestService } from '../interfaces/IContestService';
-import { IContestRepository } from '../interfaces/IContestRepository';
-import { Contest } from '../models/Contest';
+import {IContestService} from '../interfaces/IContestService';
+import {IContestRepository} from '../interfaces/IContestRepository';
+import {Contest} from '../models/Contest';
 
 export class ContestService implements IContestService {
-    constructor(private contestRepository: IContestRepository) {}
+    constructor(private contestRepository: IContestRepository) {
+    }
 
     async getAllContests(): Promise<Contest[]> {
         return this.contestRepository.getAll();

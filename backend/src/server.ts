@@ -1,7 +1,17 @@
+import "reflect-metadata";
 import app from './app';
+import Logger from './utils/logger';
+import {AppDataSource} from "./data-source";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+AppDataSource.initialize()
+    .then(() => {
+        Logger.info("Data Source has been initialized!");
+        app.listen(PORT, () => {
+            Logger.info(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        Logger.error("Error during Data Source initialization:", err);
+    });

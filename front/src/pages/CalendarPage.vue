@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import CalendarGrid from '@/widgets/CalendarGrid.vue';
-import { useUserStore } from '@/entities/user/model/store';
-import { useI18nStore } from '@/entities/i18n/model/store';
+import { useUserStore } from '@/stores/user';
+import { useI18nStore } from '@/stores/i18n';
 import { useRouter } from 'vue-router';
 
 const isAddModalOpen = ref(false);
