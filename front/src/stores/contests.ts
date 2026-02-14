@@ -2,6 +2,7 @@ import {defineStore} from 'pinia';
 import {computed, ref} from 'vue';
 import {useStorage} from '@vueuse/core';
 import {useUserStore} from '@/stores/user';
+import {API_BASE} from '@/shared/config/api';
 
 export interface Contest {
     id: string;
@@ -22,7 +23,7 @@ export const useContestsStore = defineStore('contests', () => {
     const contests = ref<Contest[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
-    const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:8080';
+    const apiBase = API_BASE;
     const token = useStorage<string | null>('codequest_token', null, localStorage);
     const favoritesByUser = useStorage<Record<string, string[]>>('codequest_favorites', {}, localStorage);
 

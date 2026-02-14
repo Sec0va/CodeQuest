@@ -3,6 +3,7 @@ import {computed, onBeforeUnmount, onMounted, ref} from 'vue';
 import {useUserStore} from '@/stores/user';
 import {useI18nStore} from '@/stores/i18n';
 import {RouterLink} from 'vue-router';
+import {API_BASE} from '@/shared/config/api';
 
 const userStore = useUserStore();
 const i18n = useI18nStore();
@@ -25,7 +26,7 @@ type UserSummary = {
   solved: number;
 };
 
-const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:8080';
+const apiBase = API_BASE;
 
 const hasAccess = computed(() => {
   return userStore.user?.role === 'admin';

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useStorage } from '@vueuse/core';
+import { API_BASE } from '@/shared/config/api';
 
 export interface ProfileStats {
     rating: number;
@@ -31,7 +32,7 @@ export const useProfileStore = defineStore('profile', () => {
     const history = ref<ProfileHistoryItem[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
-    const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:8080';
+    const apiBase = API_BASE;
     const token = useStorage<string | null>('codequest_token', null, localStorage);
 
     async function apiFetch<T>(path: string, options: RequestInit = {}) {

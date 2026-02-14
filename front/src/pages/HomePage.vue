@@ -4,11 +4,12 @@ import { useUserStore } from '@/stores/user';
 import { useContestsStore } from '@/stores/contests';
 import { useI18nStore } from '@/stores/i18n';
 import { RouterLink } from 'vue-router';
+import { API_BASE } from '@/shared/config/api';
 
 const userStore = useUserStore();
 const contestsStore = useContestsStore();
 const i18n = useI18nStore();
-const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:8080';
+const apiBase = API_BASE;
 
 type TopPlayer = {
   id: string;

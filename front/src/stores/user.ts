@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia';
 import {useStorage} from '@vueuse/core';
+import {API_BASE} from '@/shared/config/api';
 
 export interface User {
     id: string;
@@ -17,7 +18,7 @@ export const useUserStore = defineStore('user', () => {
     // useStorage автоматически сохраняет данные в localStorage
     const user = useStorage<User | null>('codequest_user', null, localStorage, {mergeDefaults: true});
     const token = useStorage<string | null>('codequest_token', null, localStorage);
-    const apiBase = import.meta.env.VITE_API_BASE ?? 'http://localhost:8080';
+    const apiBase = API_BASE;
 
     async function apiFetch<T>(path: string, options: RequestInit = {}) {
         const response = await fetch(`${apiBase}${path}`, {
