@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ProfileController_1 = require("../controllers/ProfileController");
+const ProfileService_1 = require("../services/ProfileService");
+const UserRepository_1 = require("../repositories/UserRepository");
+const ContestRepository_1 = require("../repositories/ContestRepository");
+const ContestResultRepository_1 = require("../repositories/ContestResultRepository");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = (0, express_1.Router)();
+const profileService = new ProfileService_1.ProfileService(new UserRepository_1.UserRepository(), new ContestRepository_1.ContestRepository(), new ContestResultRepository_1.ContestResultRepository());
+const profileController = new ProfileController_1.ProfileController(profileService);
+router.get('/', authMiddleware_1.authenticateToken, profileController.getProfile);
+router.post('/results', authMiddleware_1.authenticateToken, profileController.addResult);
+exports.default = router;

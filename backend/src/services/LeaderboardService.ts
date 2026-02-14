@@ -12,7 +12,7 @@ export class LeaderboardService implements ILeaderboardService {
             id: user.id,
             name: user.name,
             rating: user.rating ?? 0,
-            avatar: user.avatar ?? null
+            avatar: user.avatar ?? undefined
         }));
     }
 }

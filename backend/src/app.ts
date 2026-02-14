@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import fs from 'fs';
+import path from 'path';
 import Logger from './utils/logger';
 import apiRoutes from './routes';
 
@@ -46,9 +48,20 @@ class App {
     private routes(): void {
         this.app.use('/api', apiRoutes);
 
-        // Root route
-        this.app.get('/', (req, res) => {
-            res.send('CodeQuest API is running');
+        const frontDistPath = path.resolve(__dirname, '../../front/dist');
+        const frontIndexPath = path.join(frontDistPath, 'index.html');
+        const hasFrontendBuild = fs.existsSync(frontIndexPath);
+
+        if (hasFrontendBuild) {
+            this.app.use(express.static(frontDistPath));
+            this.app.get(/^\/(?!api).*/, (_req, res) => {
+                res.sendFile(frontIndexPath);
+            });
+            return;
+        }
+
+        this.app.get('/', (_req, res) => {
+            res.send('CodeQuest API is running. Frontend build not found.');
         });
     }
 }

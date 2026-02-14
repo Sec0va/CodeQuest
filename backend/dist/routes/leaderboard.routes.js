@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const LeaderboardController_1 = require("../controllers/LeaderboardController");
+const LeaderboardService_1 = require("../services/LeaderboardService");
+const UserRepository_1 = require("../repositories/UserRepository");
+const router = (0, express_1.Router)();
+const leaderboardService = new LeaderboardService_1.LeaderboardService(new UserRepository_1.UserRepository());
+const leaderboardController = new LeaderboardController_1.LeaderboardController(leaderboardService);
+router.get('/', leaderboardController.getTopPlayers);
+exports.default = router;

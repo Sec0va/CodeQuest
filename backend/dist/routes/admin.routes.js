@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const AdminController_1 = require("../controllers/AdminController");
+const AdminService_1 = require("../services/AdminService");
+const UserRepository_1 = require("../repositories/UserRepository");
+const ContestRepository_1 = require("../repositories/ContestRepository");
+const ContestResultRepository_1 = require("../repositories/ContestResultRepository");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const router = (0, express_1.Router)();
+const adminService = new AdminService_1.AdminService(new UserRepository_1.UserRepository(), new ContestRepository_1.ContestRepository(), new ContestResultRepository_1.ContestResultRepository());
+const adminController = new AdminController_1.AdminController(adminService);
+router.get('/summary', authMiddleware_1.requireAdminKey, adminController.getSummary);
+router.get('/users', authMiddleware_1.requireAdminKey, adminController.listUsers);
+router.post('/assign-role', authMiddleware_1.requireAdminKey, adminController.assignRole);
+router.post('/award-win', authMiddleware_1.requireAdminKey, adminController.awardWin);
+exports.default = router;

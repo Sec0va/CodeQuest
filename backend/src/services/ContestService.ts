@@ -1,4 +1,4 @@
-import {IContestService} from '../interfaces/IContestService';
+import {ContestCreateInput, IContestService} from '../interfaces/IContestService';
 import {IContestRepository} from '../interfaces/IContestRepository';
 import {Contest} from '../models/Contest';
 
@@ -14,7 +14,7 @@ export class ContestService implements IContestService {
         return this.contestRepository.getById(id);
     }
 
-    async createContest(contest: Contest): Promise<Contest> {
+    async createContest(contest: ContestCreateInput): Promise<Contest> {
         // Business logic can go here (validation, etc.)
         return this.contestRepository.create(contest);
     }

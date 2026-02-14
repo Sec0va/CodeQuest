@@ -1,6 +1,7 @@
 import { IContestRepository } from '../interfaces/IContestRepository';
 import { Contest } from '../models/Contest';
 import { AppDataSource } from '../data-source';
+import { ContestCreateInput } from '../interfaces/IContestService';
 
 export class ContestRepository implements IContestRepository {
     private repository = AppDataSource.getRepository(Contest);
@@ -13,7 +14,7 @@ export class ContestRepository implements IContestRepository {
         return this.repository.findOneBy({ id });
     }
 
-    async create(contest: Contest): Promise<Contest> {
+    async create(contest: ContestCreateInput): Promise<Contest> {
         const newContest = this.repository.create(contest);
         return this.repository.save(newContest);
     }
