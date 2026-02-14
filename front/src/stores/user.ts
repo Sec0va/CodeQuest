@@ -7,6 +7,7 @@ export interface User {
     name: string;
     email: string;
     role?: string;
+    isBanned?: boolean;
     avatar?: string | null;
     location?: string | null;
     rating?: number;
@@ -64,6 +65,7 @@ export const useUserStore = defineStore('user', () => {
                 name: string;
                 email: string;
                 role: string;
+                isBanned?: boolean;
                 avatar?: string;
                 location?: string;
                 rating?: number;
@@ -77,6 +79,7 @@ export const useUserStore = defineStore('user', () => {
             name: data.user.name,
             email: data.user.email,
             role: data.user.role,
+            isBanned: Boolean(data.user.isBanned),
             avatar: data.user.avatar || null,
             location: data.user.location || null,
             rating: data.user.rating || 0,

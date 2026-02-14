@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import {computed, ref} from 'vue';
+import {computed, onUnmounted, ref, watch} from 'vue';
 import {RouterLink, useRouter} from 'vue-router';
 import {useUserStore} from '@/stores/user';
 import {useI18nStore} from '@/stores/i18n';
@@ -16,9 +16,25 @@ const hasAdminAccess = computed(() => {
 const isMobileMenuOpen = ref(false);
 const isNotifOpen = ref(false);
 
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false;
+};
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+
+watch(isMobileMenuOpen, (isOpen) => {
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+onUnmounted(() => {
+  document.body.style.overflow = '';
+});
+
 const logout = () => {
   userStore.logout();
-  isMobileMenuOpen.value = false;
+  closeMobileMenu();
   router.push('/');
 };
 </script>
@@ -100,54 +116,64 @@ const logout = () => {
       </div>
 
       <!-- РљРЅРѕРїРєР° РњРѕР±РёР»СЊРЅРѕРіРѕ РјРµРЅСЋ (Р“Р°РјР±СѓСЂРіРµСЂ) -->
-      <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="md:hidden text-white p-2 z-50">
+      <button
+          @click="toggleMobileMenu"
+          class="md:hidden text-white p-2 z-50"
+          :aria-expanded="isMobileMenuOpen"
+          aria-controls="mobile-navigation"
+          aria-label="Toggle mobile menu"
+      >
         <span class="material-symbols-outlined text-[28px]">{{ isMobileMenuOpen ? 'close' : 'menu' }}</span>
       </button>
     </div>
 
     <!-- РњРћР‘РР›Р¬РќРћР• РњР•РќР® (Р’С‹РµР·Р¶Р°РµС‚ РїРѕРІРµСЂС… РІСЃРµРіРѕ) -->
-    <div v-if="isMobileMenuOpen"
-         class="fixed inset-0 bg-[#111a22] z-[100] flex flex-col pt-24 px-6 animate-fadeIn md:hidden overflow-y-auto">
-      <nav class="flex flex-col gap-6 text-xl font-bold">
-        <RouterLink to="/" @click="isMobileMenuOpen = false" class="text-white border-b border-surface-border pb-4">
-          {{ i18n.t('header.nav.home') }}
-        </RouterLink>
-        <RouterLink to="/contests" @click="isMobileMenuOpen = false"
-                    class="text-white border-b border-surface-border pb-4">{{ i18n.t('header.nav.contests') }}
-        </RouterLink>
-        <RouterLink to="/calendar" @click="isMobileMenuOpen = false"
-                    class="text-white border-b border-surface-border pb-4">{{ i18n.t('header.nav.calendar') }}
-        </RouterLink>
-        <RouterLink to="/info" @click="isMobileMenuOpen = false" class="text-white border-b border-surface-border pb-4">
-          {{ i18n.t('header.nav.about') }}
-        </RouterLink>
-        <RouterLink v-if="hasAdminAccess" to="/admin" @click="isMobileMenuOpen = false"
-                    class="text-white border-b border-surface-border pb-4">{{ i18n.t('header.nav.admin') }}
-        </RouterLink>
-        <button
-            @click="i18n.toggleLocale()"
-            class="mt-2 bg-surface-dark text-white h-12 flex items-center justify-center rounded-xl border border-surface-border"
-        >
-          {{ i18n.t('header.language') }}: {{
-            i18n.locale === 'ru' ? i18n.t('header.langEn') : i18n.t('header.langRu')
-          }}
-        </button>
-        <template v-if="!userStore.user">
-          <RouterLink to="/auth" @click="isMobileMenuOpen = false"
-                      class="mt-2 bg-primary text-white h-14 flex items-center justify-center rounded-xl shadow-lg">
-            {{ i18n.t('header.login') }}
+    <teleport to="body">
+      <div v-if="isMobileMenuOpen"
+           id="mobile-navigation"
+           class="fixed inset-0 bg-[#111a22] z-[110] flex flex-col pt-24 px-6 animate-fadeIn md:hidden overflow-y-auto"
+           @click.self="closeMobileMenu">
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+          <RouterLink to="/" @click="closeMobileMenu" class="text-white border-b border-surface-border pb-4">
+            {{ i18n.t('header.nav.home') }}
           </RouterLink>
-        </template>
-        <template v-else>
-          <RouterLink to="/profile" @click="isMobileMenuOpen = false"
-                      class="mt-2 bg-surface-dark text-white h-14 flex items-center justify-center rounded-xl border border-surface-border">
-            {{ i18n.t('header.profile') }}
+          <RouterLink to="/contests" @click="closeMobileMenu"
+                      class="text-white border-b border-surface-border pb-4">{{ i18n.t('header.nav.contests') }}
           </RouterLink>
-          <button @click="logout" class="mt-2 text-red-500 font-bold h-14 flex items-center justify-center">
-            {{ i18n.t('header.logout') }}
+          <RouterLink to="/calendar" @click="closeMobileMenu"
+                      class="text-white border-b border-surface-border pb-4">{{ i18n.t('header.nav.calendar') }}
+          </RouterLink>
+          <RouterLink to="/info" @click="closeMobileMenu" class="text-white border-b border-surface-border pb-4">
+            {{ i18n.t('header.nav.about') }}
+          </RouterLink>
+          <RouterLink v-if="hasAdminAccess" to="/admin" @click="closeMobileMenu"
+                      class="text-white border-b border-surface-border pb-4">{{ i18n.t('header.nav.admin') }}
+          </RouterLink>
+          <button
+              @click="i18n.toggleLocale()"
+              class="mt-2 bg-surface-dark text-white h-12 flex items-center justify-center rounded-xl border border-surface-border"
+          >
+            {{ i18n.t('header.language') }}: {{
+              i18n.locale === 'ru' ? i18n.t('header.langEn') : i18n.t('header.langRu')
+            }}
           </button>
-        </template>
-      </nav>
-    </div>
+          <template v-if="!userStore.user">
+            <RouterLink to="/auth" @click="closeMobileMenu"
+                        class="mt-2 bg-primary text-white h-14 flex items-center justify-center rounded-xl shadow-lg">
+              {{ i18n.t('header.login') }}
+            </RouterLink>
+          </template>
+          <template v-else>
+            <RouterLink to="/profile" @click="closeMobileMenu"
+                        class="mt-2 bg-surface-dark text-white h-14 flex items-center justify-center rounded-xl border border-surface-border">
+              {{ i18n.t('header.profile') }}
+            </RouterLink>
+            <button @click="logout" class="mt-2 text-red-500 font-bold h-14 flex items-center justify-center">
+              {{ i18n.t('header.logout') }}
+            </button>
+          </template>
+        </nav>
+      </div>
+    </teleport>
   </header>
 </template>

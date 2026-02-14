@@ -24,6 +24,7 @@ type UserSummary = {
   rating: number;
   participations: number;
   solved: number;
+  isBanned: boolean;
 };
 
 const apiBase = API_BASE;
@@ -31,13 +32,6 @@ const apiBase = API_BASE;
 const hasAccess = computed(() => {
   return userStore.user?.role === 'admin';
 });
-
-const storedAdminKey = localStorage.getItem('codequest_admin_key');
-const normalizedAdminKey = storedAdminKey === 'admin' || !storedAdminKey ? 'dev-admin-key' : storedAdminKey;
-if (normalizedAdminKey !== storedAdminKey) {
-  localStorage.setItem('codequest_admin_key', normalizedAdminKey);
-}
-const adminKey = ref(normalizedAdminKey);
 
 const status = ref({
   api: 'loading' as ServiceStatus,
@@ -59,6 +53,8 @@ const isSummaryLoading = ref(false);
 const users = ref<UserSummary[]>([]);
 const usersError = ref<string | null>(null);
 const isUsersLoading = ref(false);
+const isBanningByUserId = ref<Record<string, boolean>>({});
+const usersActionMessage = ref<string | null>(null);
 
 const assignForm = ref({
   identifier: '',
@@ -112,14 +108,13 @@ const roleLabel = (value: string) => {
 };
 
 const adminFetch = async <T>(path: string, options: RequestInit = {}) => {
-  if (!adminKey.value) {
-    throw new Error(i18n.t('admin.keyRequired'));
-  }
+  const authToken = localStorage.getItem('codequest_token');
   const response = await fetch(`${apiBase}${path}`, {
     ...options,
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'X-Admin-Key': adminKey.value,
+      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       ...options.headers
     }
   });
@@ -164,11 +159,6 @@ const fetchUsers = async () => {
 const refreshAdminData = async () => {
   summaryError.value = null;
   usersError.value = null;
-  if (!adminKey.value) {
-    summaryError.value = i18n.t('admin.keyRequired');
-    return;
-  }
-  localStorage.setItem('codequest_admin_key', adminKey.value);
   await Promise.all([fetchSummary(), fetchUsers()]);
 };
 
@@ -205,9 +195,7 @@ const fetchStatus = async (silent = false) => {
 onMounted(() => {
   fetchStatus();
   statusInterval = window.setInterval(() => fetchStatus(true), 30000);
-  if (adminKey.value) {
-    refreshAdminData();
-  }
+  refreshAdminData();
 });
 
 onBeforeUnmount(() => {
@@ -220,14 +208,13 @@ const submitAssign = async () => {
   assignError.value = null;
   assignSuccess.value = null;
 
-  if (!assignForm.value.identifier || !assignForm.value.role || !adminKey.value) {
+  if (!assignForm.value.identifier || !assignForm.value.role) {
     assignError.value = i18n.t('admin.assignRequired');
     return;
   }
 
   try {
     isAssigning.value = true;
-    localStorage.setItem('codequest_admin_key', adminKey.value);
     await adminFetch('/api/admin/assign-role', {
       method: 'POST',
       body: JSON.stringify(assignForm.value)
@@ -245,14 +232,13 @@ const submitAward = async () => {
   awardError.value = null;
   awardSuccess.value = null;
 
-  if (!awardForm.value.identifier || !awardForm.value.contestId || !adminKey.value) {
+  if (!awardForm.value.identifier || !awardForm.value.contestId) {
     awardError.value = i18n.t('admin.awardRequired');
     return;
   }
 
   try {
     isAwarding.value = true;
-    localStorage.setItem('codequest_admin_key', adminKey.value);
     await adminFetch('/api/admin/award-win', {
       method: 'POST',
       body: JSON.stringify({
@@ -269,6 +255,37 @@ const submitAward = async () => {
     awardError.value = error instanceof Error ? error.message : i18n.t('admin.awardFailed');
   } finally {
     isAwarding.value = false;
+  }
+};
+
+const toggleBan = async (user: UserSummary) => {
+  usersError.value = null;
+  usersActionMessage.value = null;
+
+  if (user.role === 'admin') {
+    usersError.value = i18n.t('admin.banAdminForbidden');
+    return;
+  }
+
+  const nextStatus = !user.isBanned;
+
+  try {
+    isBanningByUserId.value = { ...isBanningByUserId.value, [user.id]: true };
+    await adminFetch('/api/admin/ban-user', {
+      method: 'POST',
+      body: JSON.stringify({
+        identifier: user.id,
+        isBanned: nextStatus
+      })
+    });
+    usersActionMessage.value = nextStatus ? i18n.t('admin.banSuccess') : i18n.t('admin.unbanSuccess');
+    await fetchUsers();
+  } catch (error) {
+    usersError.value = error instanceof Error ? error.message : i18n.t('admin.banFailed');
+  } finally {
+    const nextState = { ...isBanningByUserId.value };
+    delete nextState[user.id];
+    isBanningByUserId.value = nextState;
   }
 };
 </script>
@@ -358,15 +375,6 @@ const submitAward = async () => {
                 <option value="user">{{ i18n.t('admin.roles.user') }}</option>
               </select>
             </label>
-            <label class="flex flex-col gap-2 md:col-span-2">
-              <span class="text-xs uppercase tracking-wide text-text-secondary">{{ i18n.t('admin.assignKey') }}</span>
-              <input
-                  v-model="adminKey"
-                  class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm focus:ring-primary focus:border-primary"
-                  type="password"
-                  placeholder="dev-admin-key"
-              />
-            </label>
             <div class="flex items-end">
               <button :disabled="isAssigning"
                       class="h-11 w-full rounded-lg bg-primary text-white font-bold hover:bg-blue-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
@@ -444,15 +452,6 @@ const submitAward = async () => {
                   class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm"
               />
             </label>
-            <label class="flex flex-col gap-2">
-              <span class="text-xs uppercase tracking-wide text-text-secondary">{{ i18n.t('admin.assignKey') }}</span>
-              <input
-                  v-model="adminKey"
-                  type="password"
-                  class="h-11 rounded-lg bg-surface-highlight border border-surface-border text-white px-3 text-sm"
-                  placeholder="dev-admin-key"
-              />
-            </label>
             <div class="flex items-end">
               <button :disabled="isAwarding"
                       class="h-11 w-full rounded-lg bg-primary text-white font-bold hover:bg-blue-600 transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
@@ -471,18 +470,32 @@ const submitAward = async () => {
             </button>
           </div>
           <div v-if="usersError" class="text-xs text-red-400">{{ usersError }}</div>
+          <div v-else-if="usersActionMessage" class="text-xs text-green-400">{{ usersActionMessage }}</div>
           <div v-else-if="isUsersLoading" class="text-xs text-text-secondary">{{ i18n.t('admin.loading') }}</div>
           <div v-else-if="!users.length" class="text-xs text-text-secondary">{{ i18n.t('admin.usersEmpty') }}</div>
           <div v-else class="flex flex-col gap-3 text-sm">
-            <div v-for="user in users" :key="user.id" class="flex items-center justify-between border-b border-surface-border pb-2">
+            <div v-for="user in users" :key="user.id" class="flex items-center justify-between gap-3 border-b border-surface-border pb-2">
               <div>
                 <p class="text-white font-semibold">{{ user.name }}</p>
                 <p class="text-xs text-text-secondary">{{ user.email }}</p>
               </div>
-              <div class="text-right">
+              <div class="text-right min-w-[90px]">
                 <p class="text-xs uppercase tracking-wide text-text-secondary">{{ roleLabel(user.role) }}</p>
                 <p class="text-sm font-bold text-primary">{{ user.rating }}</p>
+                <p v-if="user.isBanned" class="text-[10px] font-semibold text-red-400 uppercase tracking-wide">
+                  {{ i18n.t('admin.bannedLabel') }}
+                </p>
               </div>
+              <button
+                  :disabled="user.role === 'admin' || Boolean(isBanningByUserId[user.id])"
+                  class="h-9 min-w-[78px] rounded-lg px-3 text-xs font-bold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  :class="user.isBanned
+                    ? 'bg-emerald-600 text-white hover:bg-emerald-500'
+                    : 'bg-rose-600 text-white hover:bg-rose-500'"
+                  @click="toggleBan(user)"
+              >
+                {{ user.isBanned ? i18n.t('admin.unban') : i18n.t('admin.ban') }}
+              </button>
             </div>
           </div>
         </div>
