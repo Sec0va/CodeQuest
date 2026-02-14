@@ -5,28 +5,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.requireAdminKey = exports.requireAdminOrOrganizer = exports.requireAdmin = exports.authenticateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const data_source_1 = require("../data-source");
+const User_1 = require("../models/User");
 const authenticateToken = (req, res, next) => {
     const token = req.cookies.token;
-    if (!token) {
-        // Fallback to checking Authorization header if we still want to support it
-        const authHeader = req.headers['authorization'];
-        const tokenHeader = authHeader && authHeader.split(' ')[1];
-        if (tokenHeader) {
-            jsonwebtoken_1.default.verify(tokenHeader, process.env.JWT_SECRET || 'secret_key', (err, user) => {
-                if (err)
-                    return res.sendStatus(403);
-                req.user = user;
-                next();
-            });
+    const authHeader = req.headers['authorization'];
+    const tokenHeader = authHeader && authHeader.split(' ')[1];
+    const rawToken = token || tokenHeader;
+    if (!rawToken) {
+        res.sendStatus(401);
+        return;
+    }
+    let payload;
+    try {
+        payload = jsonwebtoken_1.default.verify(rawToken, process.env.JWT_SECRET || 'secret_key');
+    }
+    catch (_error) {
+        res.sendStatus(403);
+        return;
+    }
+    const userId = typeof payload === 'object' && (payload === null || payload === void 0 ? void 0 : payload.id) ? String(payload.id) : '';
+    if (!userId) {
+        res.sendStatus(403);
+        return;
+    }
+    data_source_1.AppDataSource.getRepository(User_1.User)
+        .findOneBy({ id: userId })
+        .then((user) => {
+        if (!user) {
+            res.status(401).json({ message: 'Unauthorized' });
             return;
         }
-        return res.sendStatus(401);
-    }
-    jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || 'secret_key', (err, user) => {
-        if (err)
-            return res.sendStatus(403);
-        req.user = user;
+        if (user.isBanned) {
+            res.status(403).json({ message: 'User is banned' });
+            return;
+        }
+        req.user = {
+            id: user.id,
+            email: user.email,
+            role: user.role,
+            isBanned: user.isBanned
+        };
         next();
+    })
+        .catch(() => {
+        res.status(500).json({ message: 'Failed to authorize user' });
     });
 };
 exports.authenticateToken = authenticateToken;

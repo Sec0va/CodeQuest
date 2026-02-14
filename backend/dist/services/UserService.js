@@ -43,6 +43,7 @@ class UserService {
                 email,
                 password: hashedPassword,
                 role: email === 'admin@admin' ? 'admin' : 'user',
+                isBanned: false,
                 avatar: avatar || null,
                 location: location || null,
                 rating: 0,
@@ -62,7 +63,10 @@ class UserService {
             if (!isPasswordValid) {
                 throw new Error('Invalid credentials');
             }
-            const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1d' });
+            if (user.isBanned) {
+                throw new Error('User is banned');
+            }
+            const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email, role: user.role, isBanned: user.isBanned }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1d' });
             const { password: _ } = user, userWithoutPassword = __rest(user, ["password"]);
             return { token, user: userWithoutPassword };
         });

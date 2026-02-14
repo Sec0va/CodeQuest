@@ -56,6 +56,10 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "solved", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: "boolean", default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "isBanned", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => ContestResult_1.ContestResult, (result) => result.user),
     __metadata("design:type", Array)
 ], User.prototype, "results", void 0);

@@ -52,6 +52,7 @@ class UserRepository {
     findTopRated(limit_1) {
         return __awaiter(this, arguments, void 0, function* (limit, excludeRoles = []) {
             const query = this.repository.createQueryBuilder('user')
+                .where('user.isBanned = :isBanned', { isBanned: false })
                 .orderBy('user.rating', 'DESC')
                 .take(limit);
             if (excludeRoles.length > 0) {

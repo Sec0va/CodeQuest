@@ -21,6 +21,7 @@ export class UserService implements IUserService {
             email,
             password: hashedPassword,
             role: email === 'admin@admin' ? 'admin' : 'user',
+            isBanned: false,
             avatar: avatar || null,
             location: location || null,
             rating: 0,
@@ -41,9 +42,12 @@ export class UserService implements IUserService {
         if (!isPasswordValid) {
             throw new Error('Invalid credentials');
         }
+        if (user.isBanned) {
+            throw new Error('User is banned');
+        }
 
         const token = jwt.sign(
-            {id: user.id, email: user.email, role: user.role},
+            {id: user.id, email: user.email, role: user.role, isBanned: user.isBanned},
             process.env.JWT_SECRET || 'secret_key',
             {expiresIn: '1d'}
         );

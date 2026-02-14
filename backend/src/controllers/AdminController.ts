@@ -68,4 +68,23 @@ export class AdminController {
             res.status(400).json({ message });
         }
     };
+
+    banUser = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { identifier, isBanned } = req.body ?? {};
+            if (!identifier) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
+
+            const user = await this.adminService.banUser({
+                identifier: String(identifier),
+                isBanned: typeof isBanned === 'boolean' ? isBanned : true
+            });
+            res.status(200).json({ user: stripPassword(user) });
+        } catch (error: any) {
+            const message = error?.message ?? 'Failed to change user ban status';
+            res.status(message.includes('not found') ? 404 : 400).json({ message });
+        }
+    };
 }

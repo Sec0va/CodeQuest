@@ -1,4 +1,4 @@
-import { IAdminService, AssignableRole, AwardWinPayload, AwardWinResult, AdminSummary } from '../interfaces/IAdminService';
+import { IAdminService, AssignableRole, AwardWinPayload, AwardWinResult, AdminSummary, BanUserPayload } from '../interfaces/IAdminService';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { IContestRepository } from '../interfaces/IContestRepository';
 import { IContestResultRepository } from '../interfaces/IContestResultRepository';
@@ -131,5 +131,24 @@ export class AdminService implements IAdminService {
         await this.userRepository.save(user);
 
         return { user, result };
+    }
+
+    async banUser(payload: BanUserPayload): Promise<User> {
+        const identifier = String(payload?.identifier ?? '').trim();
+        if (!identifier) {
+            throw new Error('Missing required fields');
+        }
+
+        const user = await this.findUserByIdentifier(identifier);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        if (user.email === ADMIN_EMAIL || user.role === 'admin') {
+            throw new Error('Admins cannot be banned');
+        }
+
+        user.isBanned = payload.isBanned === undefined ? true : Boolean(payload.isBanned);
+        return this.userRepository.save(user);
     }
 }

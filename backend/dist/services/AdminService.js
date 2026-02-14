@@ -124,5 +124,23 @@ class AdminService {
             return { user, result };
         });
     }
+    banUser(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a;
+            const identifier = String((_a = payload === null || payload === void 0 ? void 0 : payload.identifier) !== null && _a !== void 0 ? _a : '').trim();
+            if (!identifier) {
+                throw new Error('Missing required fields');
+            }
+            const user = yield this.findUserByIdentifier(identifier);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            if (user.email === ADMIN_EMAIL || user.role === 'admin') {
+                throw new Error('Admins cannot be banned');
+            }
+            user.isBanned = payload.isBanned === undefined ? true : Boolean(payload.isBanned);
+            return this.userRepository.save(user);
+        });
+    }
 }
 exports.AdminService = AdminService;

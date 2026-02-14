@@ -34,6 +34,7 @@ export class UserRepository implements IUserRepository {
 
     async findTopRated(limit: number, excludeRoles: Array<User['role']> = []): Promise<User[]> {
         const query = this.repository.createQueryBuilder('user')
+            .where('user.isBanned = :isBanned', { isBanned: false })
             .orderBy('user.rating', 'DESC')
             .take(limit);
 

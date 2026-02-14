@@ -89,6 +89,25 @@ class AdminController {
                 res.status(400).json({ message });
             }
         });
+        this.banUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
+            try {
+                const { identifier, isBanned } = (_a = req.body) !== null && _a !== void 0 ? _a : {};
+                if (!identifier) {
+                    res.status(400).json({ message: 'Missing required fields' });
+                    return;
+                }
+                const user = yield this.adminService.banUser({
+                    identifier: String(identifier),
+                    isBanned: typeof isBanned === 'boolean' ? isBanned : true
+                });
+                res.status(200).json({ user: stripPassword(user) });
+            }
+            catch (error) {
+                const message = (_b = error === null || error === void 0 ? void 0 : error.message) !== null && _b !== void 0 ? _b : 'Failed to change user ban status';
+                res.status(message.includes('not found') ? 404 : 400).json({ message });
+            }
+        });
     }
 }
 exports.AdminController = AdminController;

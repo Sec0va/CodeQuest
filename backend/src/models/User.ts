@@ -33,6 +33,9 @@ export class User {
     @Column({type: "int", default: 0})
     solved!: number;
 
+    @Column({type: "boolean", default: false})
+    isBanned!: boolean;
+
     @OneToMany(() => ContestResult, (result) => result.user)
     results?: ContestResult[];
 }

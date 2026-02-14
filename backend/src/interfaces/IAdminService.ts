@@ -23,9 +23,15 @@ export type AwardWinResult = {
     result: ContestResult;
 };
 
+export type BanUserPayload = {
+    identifier: string;
+    isBanned?: boolean;
+};
+
 export interface IAdminService {
     assignRole(identifier: string, role: AssignableRole): Promise<User>;
     getSummary(): Promise<AdminSummary>;
     listUsers(limit: number): Promise<User[]>;
     awardWin(payload: AwardWinPayload): Promise<AwardWinResult>;
+    banUser(payload: BanUserPayload): Promise<User>;
 }
