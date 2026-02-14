@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import app from './app';
 import Logger from './utils/logger';
-import {AppDataSource} from "./data-source";
+import {AppDataSource, databaseUrl} from "./data-source";
 
 const PORT = process.env.PORT || 8080;
 const MAX_DB_INIT_ATTEMPTS = Number(process.env.DB_INIT_MAX_ATTEMPTS || 10);
@@ -10,8 +10,8 @@ const sleep = (ms: number): Promise<void> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
 const initializeDataSource = async (): Promise<void> => {
-    if (!process.env.DATABASE_URL) {
-        throw new Error('DATABASE_URL is not set');
+    if (!databaseUrl) {
+        throw new Error('Database URL is not set. Expected one of: DATABASE_URL, DATABASE_PUBLIC_URL, POSTGRES_URL, POSTGRESQL_URL');
     }
 
     for (let attempt = 1; attempt <= MAX_DB_INIT_ATTEMPTS; attempt += 1) {
